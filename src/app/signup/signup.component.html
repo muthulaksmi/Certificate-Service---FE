@@ -50,11 +50,11 @@
           <label class ="lab" align="center" >Password<span style='color:red;'>*</span></label><br>
         
           <input class="un" type="password" formControlName="password" placeholder="" autocomplete="new-password" value="" (blur)="errorCheckPassword()" ><br>
-          <span class="error"matTooltip="8 to 16 characters long and may only contain alphanumeric and special characters">{{passwordError}}</span>
+          <span class="error"matTooltip="8 to 16 characters long and may contain alphanumeric and special characters">{{passwordError}}</span>
         </div>
         </td>
         <td class="td">
-          <div>
+          <div> 
           <label class ="lab" align="center" >Confirm Password<span style='color:red;'>*</span></label><br> 
           
           <input class="un" type="password" formControlName="confirmPassword" autocomplete="off" value="" (blur)="errorCheckConfirmPassword()"><br>
