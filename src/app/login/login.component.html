@@ -17,7 +17,7 @@
           </td>
           <td>
           <div>
-            <input class="un" type="text" placeholder="" formControlName="userName"
+            <input class="un" type="text"  formControlName="userName"
               autocomplete="off" required (blur)="errorCheckUserName()"><br>
               <span class="error" align="center">{{ userNameError }}</span>
 
@@ -34,7 +34,7 @@
 
         <td>
           <div>
-            <input class="un" type="password" placeholder="" formControlName="password"
+            <input class="un" type="password" formControlName="password"
               autocomplete="off" value="" required="" (blur)="errorCheckPassword()"><br>
               <span class="error" align="center">{{ passwordError }}</span>
           </div>
