@@ -44,9 +44,7 @@ border-radius: 20px;
 outline: none;
 box-sizing: border-box;
 border: 2px solid rgba(0, 0, 0, 0.02); 
-/* margin-bottom: 50px; */
-margin-left: 46px;
-/* margin-bottom: 27px; */
+margin-left: 35%;
 font-family: 'Ubuntu', sans-serif;
 height: 40px;
 
@@ -81,25 +79,27 @@ form.form1 {
 
 .submit {
   cursor: pointer;
-  border-radius: 5em;
-  color: #dadae7;
-  background: linear-gradient(to right, #b8a09f, #4c40fb);
-  border: 0;
-  padding: 3% 6%;
-  font-family: 'Ubuntu', sans-serif;
-  margin-left: 50%;
-  font-size: 15px;
-  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
-  font-weight: bold;
-  overflow: visible;
+	border-radius: 5em; 
+	border: 0;
+	padding-left: 40px;
+	padding-right: 50px;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	font-family: Tahoma, Geneva, Verdana, sans-serif, sans-serif;
+	margin-left: 50%;
+	margin-top: 5%;
+  margin-bottom: 10%;
+	font-size: 13px;
+	font-weight: bold;
+	text-align: center;
 }
 .errorgeneric {
 height: 1em; 
 color: red;
-font-size: 0.8em; 
+/* font-size: 0.8em;  */
 padding: 3% 6%;
-font-family: 'Ubuntu', sans-serif;
-margin-left: 15%;
+font-family:  Tahoma, Geneva, Verdana, sans-serif;
+margin-left: 25%;
 font-size: 15px;
 font-weight: bold;
 overflow: visible;
@@ -109,7 +109,8 @@ overflow: visible;
   height: 1em; 
   color: red; 
   font-size: 0.8em; 
-  padding-left: 50px;
+  padding-left: 37%;
+  
   /* padding-left: 50px; */
   /* overflow: visible; */
 }
@@ -117,9 +118,8 @@ overflow: visible;
 .lab {
   font-weight: 500;
   font-size: 14px;
-  /* font-style: italic; */
   margin-left: 75%;
-  margin-bottom: 35%;
+  margin-bottom: 20%;
   overflow: visible;
   white-space: nowrap;
 
@@ -154,6 +154,7 @@ overflow: visible;
   overflow: visible;
   padding-left: 100%; 
   white-space: nowrap;
+  margin-left: 15%;
 }
 
 /* @media (max-width: 767px) {

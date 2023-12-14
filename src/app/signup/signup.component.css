@@ -16,11 +16,24 @@ main {
 }
 .sign {
 	padding-top: 30px;
-	color: #aa555c;
+	color: #6c55aa;
 	font-weight: bold;
 	font-size: 20px;
 	font-family:Tahoma, Geneva, Verdana, sans-serif;
 }
+.errorgeneric {
+	height: 1em; 
+	color: red;
+	/* font-size: 0.8em;  */
+	padding: 3% 6%;
+	font-family:  Tahoma, Geneva, Verdana, sans-serif;
+	margin-left: 25%;
+	font-size: 15px;
+	font-weight: bold;
+	overflow: visible;
+	white-space: nowrap;
+	
+	}
 
 .lab{
 	margin-left:17%;
@@ -102,23 +115,21 @@ font-family: 'Ubuntu', sans-serif;
 	}
 
 }
-.submit {
+ .submit {
 	cursor: pointer;
-	border-radius: 5em;
-	color: #e7dfdf;
-	background: linear-gradient(to right, #b8a09f, #4c40fb);
+	border-radius: 5em; 
 	border: 0;
 	padding-left: 40px;
 	padding-right: 50px;
 	padding-bottom: 10px;
 	padding-top: 10px;
-	font-family: 'Ubuntu', sans-serif;
+	font-family: Tahoma, Geneva, Verdana, sans-serif, sans-serif;
 	margin-left: 35%;
+	margin-top: 5%;
 	font-size: 13px;
-	box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
 	font-weight: bold;
 	text-align: center;
-}
+} 
 
 .main table td {
     height: 70px; 

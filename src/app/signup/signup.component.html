@@ -65,11 +65,13 @@
             
       <tr>
         <td colspan="2" class="td">
-          <button class="submit"> Submit </button>
+          <button class="submit" [disabled]="myForm.invalid"> Submit </button>
         </td>
       </tr>
       <tr colspan="2">
-        <p style="color:red">*{{formerror}}</p>
+        <td>
+        <p style="color:red" align="center" class="errorgeneric">{{formerror}}</p>
+      </td>
       </tr>
     </tbody>
     </table>

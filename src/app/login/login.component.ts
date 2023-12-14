@@ -63,7 +63,7 @@ export class LoginComponent implements OnInit {
     
     if (this.myForm.get('userName')?.hasError('required')){
       
-      this.userNameError = "** UserName is required";
+      this.userNameError = "* UserName is required";
       this.submitted = true;
       console.log(this.formerror);
     }  
@@ -76,7 +76,7 @@ export class LoginComponent implements OnInit {
   errorCheckPassword(){
     console.log("come here");
     if (this.myForm.get('password')?.hasError('required')){
-      this.passwordError = "** Password is required";
+      this.passwordError = "* Password is required";
       this.submitted = true;
       console.log(this.passwordError);
     }  

@@ -1,12 +1,11 @@
 import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
-import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Directive, ElementRef, Input, HostListener, Renderer2 } from '@angular/core';
+//  import { Directive, ElementRef, Input, HostListener, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-signup',
@@ -17,7 +16,6 @@ import { Directive, ElementRef, Input, HostListener, Renderer2 } from '@angular/
 
 
 export class SignupComponent implements OnInit {
-  //user!: User;  
   message = "";
   submitted = false;
   formerror = "";
@@ -27,10 +25,10 @@ export class SignupComponent implements OnInit {
   emailError = "";
   passwordError = "";
   confirmPasswordError = "";
-  firstNameTooltip = "*Alphabets only\nMaximum 20 characters only";
-  userNameTooltip = "*Alphanumeric\n8 to 16 characters."
-  emailTooltip = "e.g. someone@gmail.com";
-  passwordTooltip = "Alphanumeric, special characters. \n 8 to 16 characters."
+  // firstNameTooltip = "*Alphabets only\nMaximum 20 characters only";
+  // userNameTooltip = "*Alphanumeric\n8 to 16 characters."
+  // emailTooltip = "e.g. someone@gmail.com";
+  // passwordTooltip = "Alphanumeric, special characters. \n 8 to 16 characters."
   // firstNameBorderColor="";
 
   myForm!: FormGroup;
@@ -67,45 +65,18 @@ export class SignupComponent implements OnInit {
       lastName: ['', [Validators.required, Validators.pattern('^[A-Za-z]*$'), Validators.maxLength(20)]],
       userName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$'), Validators.minLength(8), Validators.maxLength(16), this.containsLetterValidator]],
       //Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[com]{3,}$/)
-      email: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z0-9.a-zA-Z%+-]+@[a-zA-Z0-9-]+(?<!\.)\.[a-zA-Z]{2,}$/)])],
-
+      email: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=(?:[^.]*.){1,2}[^.]*$)[a-zA-Z0-9._%+-]+[a-zA-Z0-9]@(gmail|yahoo|hotmail|rediffmail)\.com$/)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16),])],
       //password: ['',Validators.compose[Validators.required, this.passwordValidator]],
       confirmPassword: ['', [Validators.required]],
     });
 
   }
-  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, public dialog: MatDialog, private sanitizer: DomSanitizer) {
+  constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, public dialog: MatDialog) {
 
   }
 
-  // showTooltip(fields: string) {
-  //   switch(fields)
-  //   {
-  //     case "firstname":
-  //       this.TooltipMessage = "Value should be alphanumeric!";
-  //       this.isTooltipVisible=true;
-  //       break;
-  //     // case "lastname":
-  //     //   this.TooltipMessage = "Value should be alphanumeric!";
-  //     //   this.isTooltipVisible=true;
-  //     //   break;
-  //   }
-  // }
-  // hideTooltip(fields: string) {
-  //   switch(fields)
-  //   {
-  //     case "firstname":
-  //       this.isTooltipVisible=false;
-  //       this.errorCheckFirstName();
-
-  //       break;
-  //     // case "lastname":
-  //     //     this.isTooltipVisible=false;
-  //     //     this.errorCheckLastName();
-  //     //     break;
-  //   }
-  // }
+  
   errorCheckConfirmPassword() {
 
     const pass = this.myForm.get('password')?.value;
@@ -126,13 +97,7 @@ export class SignupComponent implements OnInit {
     }
 
   }
-  getTooltipFirstName(): string {
-    // Function to sanitize HTML content for tooltip
-    const content = '"Alphabets only"+ "<br>" +" Maximum of 20 characters"';
-    return (this.sanitizer.sanitize(SecurityContext.HTML, content)) ?? '';
-
-  }
-
+  
   errorCheckPassword() {
 
     let value = this.myForm.controls['password'].value;
@@ -160,7 +125,7 @@ export class SignupComponent implements OnInit {
 
 
     if (this.myForm.get('email')?.hasError('pattern')) {
-      this.emailError = "** Please enter valid email address";
+      this.emailError = "*Enter Valid Input";
       console.log(this.formerror);
       this.submitted = true;
     }
@@ -230,7 +195,7 @@ export class SignupComponent implements OnInit {
   }
 
   registerUser() {
-
+    this.formerror="";
     const data = {
       firstName: this.myForm.controls['firstName'].value,
       lastName: this.myForm.controls['lastName'].value,
@@ -239,31 +204,32 @@ export class SignupComponent implements OnInit {
       password: this.myForm.controls['password'].value,
       role: "user",
     };
+    
+    // if (this.myForm.controls['firstName'].value !== "" && this.myForm.controls['lastName'].value !== "" && this.myForm.controls['userName'].value !== "" && this.myForm.controls['email'].value !== "" && this.myForm.controls['password'].value !== "" && this.myForm.controls['confirmPassword'].value !== "") {
 
-    if (this.myForm.controls['firstName'].value !== "" && this.myForm.controls['lastName'].value !== "" && this.myForm.controls['userName'].value !== "" && this.myForm.controls['email'].value !== "" && this.myForm.controls['password'].value !== "" && this.myForm.controls['confirmPassword'].value !== "") {
-
-      this.errorCheckFirstName();
-      if (!this.submitted) {
-        this.errorCheckLastName();
-      }
-      if (!this.submitted) {
-        this.errorCheckUserName();
-      }
-      if (!this.submitted) {
-        this.errorCheckEmail();
-      }
-      if (!this.submitted) {
-        this.errorCheckPassword();
-      }
-      if (!this.submitted) {
-        this.errorCheckConfirmPassword();
-      }
-      if (!this.submitted) {
+      //  this.errorCheckFirstName();
+      //  if (!this.submitted) {
+      //    this.errorCheckLastName();
+      //  }
+      //  if (!this.submitted) {
+      //    this.errorCheckUserName();
+      //  }
+      //  if (!this.submitted) {
+      //    this.errorCheckEmail();
+      //  }
+      //  if (!this.submitted) {
+      //    this.errorCheckPassword();
+      //  }
+      //  if (!this.submitted) {
+      //    this.errorCheckConfirmPassword();
+      //  }
         let url = 'http://localhost:8080/auth/register';
         this.http.post(url, data).subscribe((response) => {
           console.log("Come here");
           console.log("post successful: ", response);
           this.openDialog();
+          
+
           //  this.dialogRef.open(PopUpComponent);
         },
           (error: any) => {
@@ -272,12 +238,8 @@ export class SignupComponent implements OnInit {
             console.error("Error during post: ", error.error.Message);
             this.formerror = error.error.Message;
           });
-      }
-    }
-    else {
-      this.submitted = true;
-      this.formerror = "All Fields are mandatory.";
-    }
+      // }
+    
 
 
   }
@@ -326,6 +288,6 @@ export class DialogComponent {
   }
 }
 
-function showTooltip(fields: any, string: any) {
-  throw new Error('Function not implemented.');
-}
+// function showTooltip(fields: any, string: any) {
+//   throw new Error('Function not implemented.');
+// }
