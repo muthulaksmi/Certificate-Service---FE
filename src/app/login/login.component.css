@@ -1,0 +1,189 @@
+a {
+  text-decoration: none;
+  font-weight: bold;
+  /* font-style: italic; */
+
+}
+.left{
+  display: flex;
+}
+.left-image {
+  max-width: 50%; /* Adjust the width as needed */
+  height: 100vh;
+}
+
+.main {
+  background-color: #FFFFFF;
+  width: 100%;
+  height: 100%;
+  margin-left: 3%;
+  margin-top: 5%;
+  overflow: visible;
+}
+
+.sign {
+  padding-top: 4%;
+  padding-left: 30%;
+  color: #6c55aa;
+  font-size: 25px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-weight: 700;
+  overflow: visible;
+}
+
+.un {
+  width: 250px;
+color: rgb(38, 50, 56);
+font-weight: 700;
+font-size: 14px;
+letter-spacing: 1px;
+background: rgba(136, 126, 126, 0.04);
+padding: 10px 20px;
+border: none;
+border-radius: 20px;
+outline: none;
+box-sizing: border-box;
+border: 2px solid rgba(0, 0, 0, 0.02); 
+/* margin-bottom: 50px; */
+margin-left: 46px;
+text-align: center;
+/* margin-bottom: 27px; */
+font-family: 'Ubuntu', sans-serif;
+height: 40px;
+
+}
+
+form.form1 {
+  padding-top: 11%;
+}
+
+
+
+
+.forgot {
+  text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
+  color: black;
+  font-weight: 500;
+  overflow: visible;
+  white-space: nowrap;
+  padding-left: 62%;
+  text-align: center;
+  
+}
+
+
+
+@media (max-width: 600px) {
+  .main {
+      border-radius: 0px;
+  }
+
+}
+
+.submit {
+  cursor: pointer;
+  border-radius: 5em;
+  color: #dadae7;
+  background: linear-gradient(to right, #b8a09f, #4c40fb);
+  border: 0;
+  padding: 3% 6%;
+  font-family: 'Ubuntu', sans-serif;
+  margin-left: 50%;
+  font-size: 15px;
+  box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.04);
+  font-weight: bold;
+  overflow: visible;
+}
+.errorgeneric {
+height: 1em; 
+color: red;
+font-size: 0.8em; 
+padding: 3% 6%;
+font-family: 'Ubuntu', sans-serif;
+margin-left: 15%;
+font-size: 15px;
+font-weight: bold;
+overflow: visible;
+
+}
+.error {
+  height: 1em; 
+  color: red; 
+  font-size: 0.8em; 
+  padding-left: 50px;
+  /* padding-left: 50px; */
+  /* overflow: visible; */
+}
+
+.lab {
+  font-weight: 500;
+  font-size: 14px;
+  /* font-style: italic; */
+  margin-left: 75%;
+  margin-bottom: 35%;
+  overflow: visible;
+  white-space: nowrap;
+
+}
+
+.main table td {
+  height: 10vh;
+}
+
+.h1 {
+  text-align: left;
+  flex: 1;
+color: rgb(28, 39, 197);
+padding-left: 20%;
+white-space: nowrap; 
+letter-spacing: .01em;    
+font-size: 180%;
+font-style: inherit;
+font-weight: 700;
+overflow: visible;
+
+}
+.right {
+  text-align: center;
+  flex: 1;
+  flex-direction: column;
+}
+.signup {
+  color: black;
+  font-weight: 500;
+  margin-top: 2%;
+  overflow: visible;
+  padding-left: 100%; 
+  white-space: nowrap;
+}
+
+/* @media (max-width: 767px) {
+.left {
+  flex-direction: column; 
+}
+
+.left-image {
+  max-width: 100%; 
+  height: auto; 
+}
+
+.main {
+  margin-left: 0; 
+  padding: 0 10px; 
+}
+
+.sign {
+  padding-left: 10%; 
+  margin-bottom: 10%;
+}
+
+.lab {
+  margin-left: 10%; 
+  text-align: left; 
+}
+
+.signup {
+  padding-left: 10%;
+  text-align: left; 
+}
+} */

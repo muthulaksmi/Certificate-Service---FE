@@ -1,0 +1,13 @@
+[
+    {
+        "CertificateName": "SSL Certificate-Domain1"
+    },
+    {
+        "CertificateName": "Wild Card SSL Certificate Domain2"
+
+    },
+    {
+        "CertificateName": "MultiDomain Certificate Domain3"
+        
+    }
+]

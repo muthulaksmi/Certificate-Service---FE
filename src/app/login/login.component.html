@@ -1,0 +1,63 @@
+<div class = "left">
+  
+
+  <img src="/assets/lockwithdata.avif" alt="Data Hand Image" class="left-image">
+<div class="main">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <h1 class="h1">CERTIFICATE SERVICE</h1>
+  <p class="sign" align="left">Sign in</p>
+  <form class="form1" id="form1" [formGroup]="myForm" (ngSubmit)="submit()">
+    <table>
+      <tbody>
+      <tr>
+        <td>
+          <div class="lab">
+            <label align="center" style="color:black">User Name<span style='color:red;'>*</span></label>
+          </div>
+          </td>
+          <td>
+          <div>
+            <input class="un" type="text" align="center" placeholder="" formControlName="userName"
+              autocomplete="off" required (blur)="errorCheckUserName()"><br>
+              <span class="error" align="center">{{ userNameError }}</span>
+
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <div class="lab">
+            <label align="center" style="color:black">Password<span style='color:red;'>*</span></label>
+          </div>
+        </td>
+
+        <td>
+          <div>
+            <input class="un" type="password" align="center" placeholder="" formControlName="password"
+              autocomplete="off" value="" required="" (blur)="errorCheckPassword()"><br>
+              <span class="error" align="center">{{ passwordError }}</span>
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <button class="submit">Sign-in</button>
+        </td>
+      </tr>
+    
+    <tr>
+      <td>
+        <div><a routerLink="/forgot" class="forgot" align="left">Forgot Password?</a></div>
+      </td>
+      <td>
+        <div ><a routerLink="/signup" class="signup">Sign-up</a></div>
+      </td>
+    </tr>
+  </tbody>
+  </table>
+  </form>
+  <p class="errorgeneric" *ngIf="submitted" >{{ formerror }}</p>
+</div>
+</div>

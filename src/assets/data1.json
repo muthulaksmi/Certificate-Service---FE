@@ -1,0 +1,13 @@
+{
+    "version":"v3",
+    "Serial Number":"12wsed345fh5thbjji7uik",
+    "Signature Algorithm": "Sha1RSA",
+    "Signature Hash Algorithm": "RSA",
+    "Issuer":"s1-s2-2903459-1320405",
+    "Valid-from":"Thursday, Dec 7 2023, 11.58",
+    "Valid-to":"Thursday, Dec 7 2023, 11.58",
+    "Subject":"s1-s2-2903459-1320405",
+    "Public Key":"RSA(2048 bits)",
+    "Public Key Parameter":"05 00",
+    "Basic Constraints": "smart card logon"
+}

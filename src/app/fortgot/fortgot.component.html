@@ -1,0 +1,34 @@
+<div class="main">
+    <form class="form1" id="form1" [formGroup]="myForm">
+      <table>
+        <tbody>
+        <tr>
+          <td>
+            <div class="lab">
+              <label align="center" style="color:darkorchid">Email</label>
+            </div>
+            </td>
+            <td>
+            <div>
+              <input class="un" type="text" align="center" placeholder="" formControlName="email"
+                autocomplete="off" value="" required="" (blur)="errorCheckEmail()">
+            </div>
+          </td>
+        </tr>
+  
+        <tr>
+          <td colspan="2">
+            <div>
+                <button class="submit">Submit</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2">
+            <p class="error" *ngIf ="submitted" align ="center">{{ formerror }}</p>
+          </td>
+        </tr>
+    </tbody>
+    </table>
+    </form>
+  </div>
