@@ -102,11 +102,12 @@ export class SignupComponent implements OnInit {
 
     let value = this.myForm.controls['password'].value;
     let hasNoSpaces = /\s/.test(value);
+    console.log("Space: ", hasNoSpaces);
     if (this.myForm.get('password')?.hasError('required')) {
       this.passwordError = "*Required";
       this.submitted = true;
       console.log(this.formerror);
-    } else if (this.myForm.get('password')?.hasError('minlength') || (this.myForm.get('password')?.hasError('required'))) {
+    } else if (this.myForm.get('password')?.hasError('minlength') || this.myForm.get('password')?.hasError('maxlength') || hasNoSpaces) {
       this.passwordError = "Enter Valid Input";
       console.log(this.formerror);
       this.submitted = true;
