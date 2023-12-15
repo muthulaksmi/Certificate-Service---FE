@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   showHeader = false;
   viewHeader = false;
   username:string = "";
-  name = "Certificate Service";
+  // name = "Certificate Service";
   private jsonfile = "assets/data.json";
   private jsonfile1 ="assets/data1.json";
   jsonData: any;
@@ -30,12 +30,17 @@ export class HomeComponent implements OnInit {
   }
 
   myCertificate(){
-    this.showHeader = true;
-    this.getJsonData().subscribe(data => {
-      this.jsonData = data;
-      console.log(this.jsonData); 
-      this.name = "My Certificate"
-    });
+
+
+
+    // this.showHeader = true;
+    // // change this code for list certificate name
+
+    // this.getJsonData().subscribe(data => {
+    //   this.jsonData = data;
+    //   console.log(this.jsonData); 
+    //   // this.name = "My Certificate"
+    // });
   }
   
   getJsonData(): Observable<any> {
@@ -45,16 +50,48 @@ export class HomeComponent implements OnInit {
     return this.http.get(this.jsonfile1);
   }
   viewCertificate(){
-    this.viewHeader = true;
-    this.getJsonData1().subscribe(data => {
-      this.jsonData1 = data;
-      console.log("Come here json data 1");
-      console.log(this.jsonData1);
-      this.name = "View Certificate";
-    });
+
+    // this.viewHeader = true;
+
+    // // change this code for view the particular certificate
+    // this.getJsonData1().subscribe(data => {
+    //   this.jsonData1 = data;
+    //   console.log("Come here json data 1");
+    //   console.log(this.jsonData1);
+    //   // this.name = "View Certificate";
+    // });
 
 
   }
+  
+  getData(): Observable<any> {
+    const url = 'https://api.example.com/data';
+  
+    return this.http.get<any>(url);
+  }
+  
+
+  ListCertificate(){
+   
+    // Example of how to use the getData method:
+    
+    this.getData().subscribe(
+      (data) => {
+        console.log('Data received:', data);
+        
+        // Handle the data as needed
+      },
+      (error) => {
+        console.error('Error:', error);
+        // Handle the error
+      }
+    );
+  }
+
+
+
+
+
 
    getObjectEntries(obj: any): [string, any][] {
      return Object.entries(obj);

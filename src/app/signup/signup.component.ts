@@ -1,6 +1,6 @@
 import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
 
-import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
@@ -25,12 +25,9 @@ export class SignupComponent implements OnInit {
   emailError = "";
   passwordError = "";
   confirmPasswordError = "";
-  // firstNameTooltip = "*Alphabets only\nMaximum 20 characters only";
-  // userNameTooltip = "*Alphanumeric\n8 to 16 characters."
-  // emailTooltip = "e.g. someone@gmail.com";
-  // passwordTooltip = "Alphanumeric, special characters. \n 8 to 16 characters."
-  // firstNameBorderColor="";
-
+  
+  
+  
   myForm!: FormGroup;
   private url = 'http://localhost:8080/auth/register';
 
@@ -41,7 +38,8 @@ export class SignupComponent implements OnInit {
     }
     return null;
   };
-
+  // value = this.myForm.controls['password'].value;
+  // hasNoSpaces = /\s/.test(this.value);
   // passwordValidator: ValidatorFn = (control: AbstractControl) => {
   //   const value = control.value as string;
   //   const hasMinLength = value.length >= 8;
@@ -56,19 +54,23 @@ export class SignupComponent implements OnInit {
   //   }
   //   return true;
   //   };
-
-
+  
   ngOnInit(): void {
+    
     this.myForm = this.fb.group({
 
       firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]*$'), Validators.maxLength(20)]],
       lastName: ['', [Validators.required, Validators.pattern('^[A-Za-z]*$'), Validators.maxLength(20)]],
       userName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$'), Validators.minLength(8), Validators.maxLength(16), this.containsLetterValidator]],
-      //Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[com]{3,}$/)
-      email: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=(?:[^.]*.){1,2}[^.]*$)[a-zA-Z0-9._%+-]+[a-zA-Z0-9]@(gmail|yahoo|hotmail|rediffmail)\.com$/)])],
-      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16),])],
+      email: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=(?:[^.]*.){1,2}[^.]*$)[a-zA-Z0-9._%+-]+[a-zA-Z0-9]@(gmail|yahoo|hotmail|rediffmail|ymail)\.com$/)])],
+      password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16), this.noSpacesValidator])],
       //password: ['',Validators.compose[Validators.required, this.passwordValidator]],
       confirmPassword: ['', [Validators.required]],
+    
+
+    },
+    {
+      validator: this.passwordMatchValidator 
     });
 
   }
@@ -76,18 +78,30 @@ export class SignupComponent implements OnInit {
 
   }
 
-  
+  noSpacesValidator(control: AbstractControl): ValidationErrors | null {
+    const hasNoSpaces = /\s/.test(control.value);
+    return hasNoSpaces ? { 'hasSpaces': true } : null;
+  }
+  passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
+    const password = formGroup.get('password')?.value;
+    console.log(password);
+    const confirmPassword = formGroup.get('confirmPassword')?.value;
+    console.log(confirmPassword);
+    
+    return password === confirmPassword ? null : { 'passwordMismatch': true };
+  }
+
   errorCheckConfirmPassword() {
 
-    const pass = this.myForm.get('password')?.value;
-    const conpass = this.myForm.get('confirmPassword')?.value
     if (this.myForm.get('confirmPassword')?.hasError('required')) {
-      this.confirmPasswordError = "**Required";
+      this.confirmPasswordError = "*Required";
       this.submitted = true;
       console.log(this.formerror);
     }
-    else if (pass !== null && conpass !== null && this.myForm.get('password')?.value !== this.myForm.get('confirmPassword')?.value) {
-      this.confirmPasswordError = "** password doesn't match";
+    else if(this.myForm.hasError('passwordMismatch'))  {
+
+      this.confirmPasswordError = "*Password doesn't match";
+
       this.submitted = true;
       console.log(this.formerror);
     }
@@ -100,14 +114,13 @@ export class SignupComponent implements OnInit {
   
   errorCheckPassword() {
 
-    let value = this.myForm.controls['password'].value;
-    let hasNoSpaces = /\s/.test(value);
-    console.log("Space: ", hasNoSpaces);
+    
+    
     if (this.myForm.get('password')?.hasError('required')) {
       this.passwordError = "*Required";
       this.submitted = true;
       console.log(this.formerror);
-    } else if (this.myForm.get('password')?.hasError('minlength') || this.myForm.get('password')?.hasError('maxlength') || hasNoSpaces) {
+    } else if (this.myForm.get('password')?.hasError('minlength') || this.myForm.get('password')?.hasError('maxlength') || this.myForm.get('password')?.hasError('hasSpaces') ) {
       this.passwordError = "Enter Valid Input";
       console.log(this.formerror);
       this.submitted = true;
