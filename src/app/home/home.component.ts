@@ -64,9 +64,8 @@ export class HomeComponent implements OnInit {
 
   }
   
-  getData(): Observable<any> {
-    const url = 'https://api.example.com/data';
-  
+  getData(url: string): Observable<any> {
+    
     return this.http.get<any>(url);
   }
   
@@ -74,16 +73,14 @@ export class HomeComponent implements OnInit {
   ListCertificate(){
    
     // Example of how to use the getData method:
-    
-    this.getData().subscribe(
+    const url = "http://localhost:8080/certificates"; 
+    this.getData(url).subscribe(
       (data) => {
         console.log('Data received:', data);
         
-        // Handle the data as needed
       },
       (error) => {
         console.error('Error:', error);
-        // Handle the error
       }
     );
   }

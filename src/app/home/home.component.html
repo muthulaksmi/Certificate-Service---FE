@@ -11,13 +11,13 @@
   <div class="left">
     <p class="para">Certificate Service |
       <a class="cert" (click)="myCertificate()">My Certificate</a>
-      <a class="cert">All Certificate</a>
+      <a class="cert" (click)="ListCertificate()">All Certificate</a>
     </p>
   </div>
 <div class ="bottomheader">
   
   <div class="bottomleft" *ngIf="showHeader">
-    <div> <button class ="button-3">Disassociate</button></div>
+    <div> <button class ="button-3">Associate</button></div>
     <div class="container">
       <ul class="responsive-table">
         <li class="table-header">

@@ -1,11 +1,9 @@
 import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
-
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-//  import { Directive, ElementRef, Input, HostListener, Renderer2 } from '@angular/core';
 
 @Component({
   selector: 'app-signup',
@@ -25,9 +23,9 @@ export class SignupComponent implements OnInit {
   emailError = "";
   passwordError = "";
   confirmPasswordError = "";
-  
-  
-  
+
+
+
   myForm!: FormGroup;
   private url = 'http://localhost:8080/auth/register';
 
@@ -38,58 +36,70 @@ export class SignupComponent implements OnInit {
     }
     return null;
   };
-  // value = this.myForm.controls['password'].value;
-  // hasNoSpaces = /\s/.test(this.value);
-  // passwordValidator: ValidatorFn = (control: AbstractControl) => {
-  //   const value = control.value as string;
-  //   const hasMinLength = value.length >= 8;
-  //   const hasMaxLength = value.length <=16;
-  //   const hasUppercase = /[A-Z]/.test(value);
-  //   const hasLowercase = /[a-z]/.test(value);
-  //   const hasDigit = /\d/.test(value);
-  //   const hasSpecialCharacter = /[!@#$%^&*(),.?":{}|<>]/.test(value);
-  //   const isValid = hasMinLength && hasUppercase && hasLowercase && hasDigit && hasSpecialCharacter && hasMaxLength;
-  //   if (isValid) {
-  //       return null;
-  //   }
-  //   return true;
-  //   };
-  
+
   ngOnInit(): void {
-    
+
     this.myForm = this.fb.group({
 
-      firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]*$'), Validators.maxLength(20)]],
-      lastName: ['', [Validators.required, Validators.pattern('^[A-Za-z]*$'), Validators.maxLength(20)]],
-      userName: ['', [Validators.required, Validators.pattern('^[a-zA-Z0-9]*$'), Validators.minLength(8), Validators.maxLength(16), this.containsLetterValidator]],
+      // firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]*$'), Validators.maxLength(20), this.firstNameValidator]],
+      firstName: ['', Validators.compose([Validators.required, this.firstNameValidator])],
+      lastName: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Za-z]*$'), Validators.maxLength(20)])],
+      userName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9]*$'), Validators.minLength(8), Validators.maxLength(16), this.containsLetterValidator])],
       email: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=(?:[^.]*.){1,2}[^.]*$)[a-zA-Z0-9._%+-]+[a-zA-Z0-9]@(gmail|yahoo|hotmail|rediffmail|ymail)\.com$/)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16), this.noSpacesValidator])],
-      //password: ['',Validators.compose[Validators.required, this.passwordValidator]],
-      confirmPassword: ['', [Validators.required]],
-    
-
+      confirmPassword: ['', Validators.compose([Validators.required])],
     },
-    {
-      validator: this.passwordMatchValidator 
-    });
+      {
+        validator: this.passwordMatchValidator('password', 'confirmPassword')
+      });
 
   }
   constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, public dialog: MatDialog) {
 
   }
 
+
   noSpacesValidator(control: AbstractControl): ValidationErrors | null {
     const hasNoSpaces = /\s/.test(control.value);
     return hasNoSpaces ? { 'hasSpaces': true } : null;
   }
-  passwordMatchValidator(formGroup: FormGroup): ValidationErrors | null {
-    const password = formGroup.get('password')?.value;
-    console.log(password);
-    const confirmPassword = formGroup.get('confirmPassword')?.value;
-    console.log(confirmPassword);
-    
-    return password === confirmPassword ? null : { 'passwordMismatch': true };
+  passwordMatchValidator(passwordKey: string, confirmPasswordKey: string): ValidatorFn {
+    return (control: AbstractControl): { [key: string]: any } | null => {
+      const passwordControl = control.get(passwordKey);
+      const confirmPasswordControl = control.get(confirmPasswordKey);
+
+      if (passwordControl && confirmPasswordControl && passwordControl.value !== confirmPasswordControl.value) {
+        // Passwords don't match, return an error object
+        return { 'passwordMismatch': true };
+      }
+
+      // Passwords match, return null (no error)
+      return null;
+    };
   }
+
+  firstNameValidator(control: AbstractControl): ValidationErrors | null {
+    console.log("Come here");
+    const value = control.value as string;
+    const hasMaxLength = value.length <= 20;
+    const isRequired = !!value.trim();
+    const chartest = /^[a-zA-Z]*$/.test(value);
+    const isValid = hasMaxLength && isRequired && chartest;
+    return isValid ? null : { 'firstNameCheck': true };
+  }
+
+  getErrorMessage(controlName: string) {
+    const control = this.myForm.get(controlName);
+    if (control?.hasError('required')) {
+      this.firstnameerror = 'Required';
+
+    } else if ((control?.hasError('maxlength')) || (control?.hasError('pattern'))) {
+      this.firstnameerror = 'Provide a valid input (only letters allowed)';
+    } else
+      this.firstnameerror = "";
+  }
+
+
 
   errorCheckConfirmPassword() {
 
@@ -98,7 +108,7 @@ export class SignupComponent implements OnInit {
       this.submitted = true;
       console.log(this.formerror);
     }
-    else if(this.myForm.hasError('passwordMismatch'))  {
+    else if (this.myForm.hasError('passwordMismatch')) {
 
       this.confirmPasswordError = "*Password doesn't match";
 
@@ -111,26 +121,34 @@ export class SignupComponent implements OnInit {
     }
 
   }
-  
+  checkconPass() {
+    if (!this.myForm.get('confirmPassword')?.hasError('required')) {
+      if (!this.myForm.hasError('passwordMismatch')) {
+        console.log("Come here");
+        this.confirmPasswordError = "";
+        console.log(this.formerror);
+      }
+      else{
+        this.confirmPasswordError = "*Password doesn't match";
+      }
+    }
+  }
+
   errorCheckPassword() {
 
-    
-    
     if (this.myForm.get('password')?.hasError('required')) {
       this.passwordError = "*Required";
       this.submitted = true;
       console.log(this.formerror);
-    } else if (this.myForm.get('password')?.hasError('minlength') || this.myForm.get('password')?.hasError('maxlength') || this.myForm.get('password')?.hasError('hasSpaces') ) {
+    } else if (this.myForm.get('password')?.hasError('minlength') || this.myForm.get('password')?.hasError('maxlength') || this.myForm.get('password')?.hasError('hasSpaces')) {
       this.passwordError = "Enter Valid Input";
       console.log(this.formerror);
       this.submitted = true;
-    }
-
-    else {
+    } else {
       this.passwordError = "";
       this.submitted = false;
     }
-
+    this.checkconPass();
   }
 
 
@@ -178,7 +196,7 @@ export class SignupComponent implements OnInit {
     if (this.myForm.get('firstName')?.hasError('required')) {
       this.firstnameerror = "*Required";
       this.submitted = true;
-    }else if (this.myForm.get('firstName')?.hasError('pattern') || this.myForm.get('firstName')?.hasError('maxlength')) {
+    } else if (this.myForm.get('firstName')?.hasError('pattern') || this.myForm.get('firstName')?.hasError('maxlength')) {
       this.firstnameerror = "Enter valid input";
       this.submitted = true;
 
@@ -209,7 +227,7 @@ export class SignupComponent implements OnInit {
   }
 
   registerUser() {
-    this.formerror="";
+    this.formerror = "";
     const data = {
       firstName: this.myForm.controls['firstName'].value,
       lastName: this.myForm.controls['lastName'].value,
@@ -218,42 +236,42 @@ export class SignupComponent implements OnInit {
       password: this.myForm.controls['password'].value,
       role: "user",
     };
-    
+
     // if (this.myForm.controls['firstName'].value !== "" && this.myForm.controls['lastName'].value !== "" && this.myForm.controls['userName'].value !== "" && this.myForm.controls['email'].value !== "" && this.myForm.controls['password'].value !== "" && this.myForm.controls['confirmPassword'].value !== "") {
 
-      //  this.errorCheckFirstName();
-      //  if (!this.submitted) {
-      //    this.errorCheckLastName();
-      //  }
-      //  if (!this.submitted) {
-      //    this.errorCheckUserName();
-      //  }
-      //  if (!this.submitted) {
-      //    this.errorCheckEmail();
-      //  }
-      //  if (!this.submitted) {
-      //    this.errorCheckPassword();
-      //  }
-      //  if (!this.submitted) {
-      //    this.errorCheckConfirmPassword();
-      //  }
-        let url = 'http://localhost:8080/auth/register';
-        this.http.post(url, data).subscribe((response) => {
-          console.log("Come here");
-          console.log("post successful: ", response);
-          this.openDialog();
-          
+    //  this.errorCheckFirstName();
+    //  if (!this.submitted) {
+    //    this.errorCheckLastName();
+    //  }
+    //  if (!this.submitted) {
+    //    this.errorCheckUserName();
+    //  }
+    //  if (!this.submitted) {
+    //    this.errorCheckEmail();
+    //  }
+    //  if (!this.submitted) {
+    //    this.errorCheckPassword();
+    //  }
+    //  if (!this.submitted) {
+    //    this.errorCheckConfirmPassword();
+    //  }
+    let url = 'http://localhost:8080/auth/register';
+    this.http.post(url, data).subscribe((response) => {
+      console.log("Come here");
+      console.log("post successful: ", response);
+      this.openDialog();
 
-          //  this.dialogRef.open(PopUpComponent);
-        },
-          (error: any) => {
-            console.log(" Error here:  ", error);
-            this.submitted = true;
-            console.error("Error during post: ", error.error.Message);
-            this.formerror = error.error.Message;
-          });
-      // }
-    
+
+      //  this.dialogRef.open(PopUpComponent);
+    },
+      (error: any) => {
+        console.log(" Error here:  ", error);
+        this.submitted = true;
+        console.error("Error during post: ", error.error.Message);
+        this.formerror = error.error.Message;
+      });
+    // }
+
 
 
   }

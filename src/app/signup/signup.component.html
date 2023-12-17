@@ -12,9 +12,9 @@
           <div>
             <label class ="lab">First Name<span style='color:red;'>*</span></label><br>
             
-          <input class="un" formControlName="firstName" align="center" placeholder="" autocomplete="off"
-            value="" required="" (blur)="errorCheckFirstName()"><br>
-            <span class="error" matTooltip="Maximum of 20 characters allowed and can only contain alphabets">{{ firstnameerror }}</span>
+          <input class="un" formControlName="firstName" align="center" autocomplete="off"
+            value="" required (blur)="getErrorMessage('firstName')"><br>
+            <span class="error" matTooltip="Maximum of 20 characters allowed and can only contain alphabets">{{ firstnameerror }}</span> 
           </div>
         
         </td>
@@ -22,7 +22,7 @@
           <div>
           <label class ="lab">Last Name<span style='color:red;'>*</span></label><br>
         
-          <input class="un" type="text" formControlName="lastName" align="center" placeholder="" autocomplete="" value="" (blur)="errorCheckLastName()" ><br>
+          <input class="un" type="text" required formControlName="lastName" align="center" placeholder="" autocomplete="" value="" (blur)="errorCheckLastName()" ><br>
           <span class="error" matTooltip="Maximum of 20 characters allowed and can only contain alphabets">{{ lastNameError }}</span>
         </div>
         </td>
@@ -60,8 +60,8 @@
           <input class="un" type="password" formControlName="confirmPassword" autocomplete="off" value="" (blur)="errorCheckConfirmPassword()"><br>
           <span class="error">{{confirmPasswordError}}</span>
         </div>
-        </td>
-      </tr>
+        </td> 
+      </tr> 
             
       <tr>
         <td colspan="2" class="td">
@@ -79,4 +79,3 @@
 
 </div>
 </div>
-<!-- </div> -->
