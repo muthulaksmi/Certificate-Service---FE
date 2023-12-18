@@ -17,7 +17,7 @@
 <div class ="bottomheader">
   
   <div class="bottomleft" *ngIf="showHeader">
-    <div> <button class ="button-3">Associate</button></div>
+    <div><button class ="button-3" (click)="associate()" >Associate</button></div>
     <div class="container">
       <ul class="responsive-table">
         <li class="table-header">
@@ -34,7 +34,7 @@
         <div *ngIf="jsonData && jsonData.length > 0">
   <div *ngFor="let data of jsonData; let j = index">
     <li class="table-row" *ngFor="let item of data?.certificates; let i = index;">
-      <div class="col col-0"> <input type="checkbox" /> </div>
+      <div class="col col-0"> <input type="checkbox" [(ngModel)]="item.selected" /> </div>
       <div class="col col-1" data-label="No">{{ i+1 }}</div>
       <div class="col col-2" data-label="CertificateNumber">
         <a class="CertificateNumber" (click)="viewCertificate(data.id)">{{ item.alias }}</a>
@@ -94,35 +94,34 @@
     </tbody>
   </table>
 </div> -->
-
 <div class="bottomright" *ngIf="viewHeader">
   <table class="table">
     <tbody class="tb">
       <ng-container *ngFor="let entry of getObjectEntries(jsonData1)">
         <tr class="second">
           <ng-container *ngIf="isObject(entry[1])">
-            <td class="td1">{{ entry[0] }}:</td>
-            <td class="td2">
               <div *ngFor="let nestedEntry of getObjectEntries(entry[1])">
-                <ng-container *ngIf="!isObject(nestedEntry[1])">
-                  <div>{{ nestedEntry[0] }}: {{ nestedEntry[1] }}</div>
-                </ng-container>
                 <ng-container *ngIf="isObject(nestedEntry[1])">
                   <div *ngFor="let deeperEntry of getObjectEntries(nestedEntry[1])">
-                    <div>{{ deeperEntry[0] }}: {{ deeperEntry[1] }}</div>
+                    <td class="td1">{{ deeperEntry[0]}}</td>
+                    <td class="td2">{{ deeperEntry[1] }}</td>
                   </div>
                 </ng-container>
               </div>
-            </td>
           </ng-container>
-          <ng-container *ngIf="!isObject(entry[1])">
-            <td class="td1">{{ entry[0] }}:</td>
-            <td class="td2">{{ entry[1] }}</td>
-          </ng-container>
+          <div>
+            <ng-container *ngIf="!isObject(entry[1])">
+              <td class="td1">{{ entry[0] }}:</td>
+              <td class="td2">{{ entry[1] }}</td>
+            </ng-container>
+          </div>
         </tr>
       </ng-container>
     </tbody>
   </table>
+</div>
+
+
 </div>
 
 
