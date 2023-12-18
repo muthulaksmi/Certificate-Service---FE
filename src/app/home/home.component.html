@@ -25,18 +25,29 @@
           <div class="col col-1">No</div>
           <div class="col col-2">Certificate Name</div>
         </li>
-        <li class="table-row" *ngFor="let item of jsonData; let i = index">
+        <!-- <li class="table-row" *ngFor="let item of jsonData[0]?.certificates; let i = index;">
           <div class="col col-0"> <input type="checkbox" /> </div>
-          <div class="col col-1" data-label="No">{{ i + 1 }}</div>
+          <div class="col col-1" data-label="No">{{ i+1 }}</div>
           <div class="col col-2" data-label="CertificateNumber"><a class="CertificateNumber"
-              (click)="viewCertificate()">{{ item.CertificateName }}</a></div>
-        </li>
+              (click)="viewCertificate(jsonData[0].id)">{{ item.alias }}</a></div>
+        </li> -->
+        <div *ngIf="jsonData && jsonData.length > 0">
+  <div *ngFor="let data of jsonData; let j = index">
+    <li class="table-row" *ngFor="let item of data?.certificates; let i = index;">
+      <div class="col col-0"> <input type="checkbox" /> </div>
+      <div class="col col-1" data-label="No">{{ i+1 }}</div>
+      <div class="col col-2" data-label="CertificateNumber">
+        <a class="CertificateNumber" (click)="viewCertificate(data.id)">{{ item.alias }}</a>
+      </div>
+    </li>
+  </div>
+</div>
       </ul>
     </div>
   </div>   
  
 
-  <div class="bottomright" *ngIf="viewHeader">
+  <!-- <div class="bottomright" *ngIf="viewHeader">
     <table class="table">
       <tbody class = "tb">
     <div *ngFor="let entry of getObjectEntries(jsonData1)">
@@ -50,7 +61,71 @@
     </tbody>
   </table>
  
+</div> -->
+
+
+
+<!-- <div class="bottomright" *ngIf="viewHeader">
+  <table class="table">
+    <tbody class="tb">
+      <ng-container *ngFor="let entry of getObjectEntries(jsonData1)">
+        <tr class="second">
+          <td class="td1">{{ entry[0] }}:</td>
+           <td class="td2"> 
+            <ng-container *ngIf="isObject(entry[1])">
+               If the property is an object, recursively call the displayNestedObject method 
+              <div *ngFor="let nestedEntry of getObjectEntries(entry[1])">
+                <ng-container *ngIf="!isObject(nestedEntry[1])">
+                  <div>{{ nestedEntry[0] }}: {{ nestedEntry[1] }}</div>
+                </ng-container>
+                <ng-container *ngIf="isObject(nestedEntry[1])">
+                  <div *ngFor="let deeperEntry of getObjectEntries(nestedEntry[1])">
+                    <div>{{ deeperEntry[0] }}: {{ deeperEntry[1] }}</div>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="!isObject(entry[1])">
+              {{ entry[1] }}
+            </ng-container>
+           </td> 
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+</div> -->
+
+<div class="bottomright" *ngIf="viewHeader">
+  <table class="table">
+    <tbody class="tb">
+      <ng-container *ngFor="let entry of getObjectEntries(jsonData1)">
+        <tr class="second">
+          <ng-container *ngIf="isObject(entry[1])">
+            <td class="td1">{{ entry[0] }}:</td>
+            <td class="td2">
+              <div *ngFor="let nestedEntry of getObjectEntries(entry[1])">
+                <ng-container *ngIf="!isObject(nestedEntry[1])">
+                  <div>{{ nestedEntry[0] }}: {{ nestedEntry[1] }}</div>
+                </ng-container>
+                <ng-container *ngIf="isObject(nestedEntry[1])">
+                  <div *ngFor="let deeperEntry of getObjectEntries(nestedEntry[1])">
+                    <div>{{ deeperEntry[0] }}: {{ deeperEntry[1] }}</div>
+                  </div>
+                </ng-container>
+              </div>
+            </td>
+          </ng-container>
+          <ng-container *ngIf="!isObject(entry[1])">
+            <td class="td1">{{ entry[0] }}:</td>
+            <td class="td2">{{ entry[1] }}</td>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
 </div>
+
+
 </div>
 
 
