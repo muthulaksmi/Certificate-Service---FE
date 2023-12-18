@@ -10,6 +10,13 @@ import { Router } from '@angular/router';
 })
 export class HomeComponent implements OnInit {
 
+  associateb = false;
+  disassociateb = false;
+
+disassociate() {
+throw new Error('Method not implemented.');
+}
+
 
 associate() {
 
@@ -64,13 +71,18 @@ associate() {
   }
 
   myCertificate(){
-    
-    const url = "http://localhost:8080/certificates?userName="+this.username; 
+
+    this.associateb = false;
+    this.disassociateb = true;  
+    this.viewHeader = false;
+    this.showHeader = true;
+    const url = "http://localhost:8080/auth/getmycertificates?userName="+this.username; 
     console.log(url);
     this.getData(url).subscribe(
       (data) => {
         this.jsonData = data;
-        console.log('Data received:', this.jsonData[0].certificates[0].alias);
+        console.log(data);
+        // console.log('Data received:', data[0].certName);
         
       },
       (error) => {
@@ -78,14 +90,14 @@ associate() {
       }
     );
 
-    this.showHeader = true;
+    
     // change this code for list certificate name
 
-    this.getJsonData().subscribe(data => {
-      this.jsonData = data;
-      console.log(this.jsonData); 
-      // this.name = "My Certificate"
-    });
+    // this.getJsonData().subscribe(data => {
+    //   this.jsonData = data;
+    //   console.log(this.jsonData); 
+    //   // this.name = "My Certificate"
+    // });
   }
   
   getJsonData(): Observable<any> {
@@ -139,11 +151,15 @@ associate() {
   ListCertificate(){
    
     // Example of how to use the getData method:
+    this.associateb = true;
+    this.disassociateb = false;
     this.showHeader = true;
+    this.viewHeader = false;
     const url = "http://localhost:8080/certificates"; 
     this.getData(url).subscribe(
       (data) => {
         this.jsonData = data;
+        console.log(data);
         console.log('Data received:', this.jsonData[0].certificates[0].alias);
         
       },

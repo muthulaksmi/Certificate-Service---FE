@@ -13,7 +13,7 @@
             <label class ="lab">First Name<span style='color:red;'>*</span></label><br>
             
           <input class="un" formControlName="firstName" align="center" autocomplete="off"
-            value="" required (blur)="getErrorMessage('firstName')"><br>
+            value="" required (blur)="errorCheckFirstName()" ><br>
             <span class="error" matTooltip="Maximum of 20 characters allowed and can only contain alphabets">{{ firstnameerror }}</span> 
           </div>
         

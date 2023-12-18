@@ -17,7 +17,8 @@
 <div class ="bottomheader">
   
   <div class="bottomleft" *ngIf="showHeader">
-    <div><button class ="button-3" (click)="associate()" >Associate</button></div>
+    <div><button class ="button-3" *ngIf="associateb" (click)="associate()" >Associate</button></div>
+    <div><button class ="button-3" *ngIf="disassociateb" (click)="disassociate()" >Disassociate</button></div>
     <div class="container">
       <ul class="responsive-table">
         <li class="table-header">
@@ -35,9 +36,9 @@
   <div *ngFor="let data of jsonData; let j = index">
     <li class="table-row" *ngFor="let item of data?.certificates; let i = index;">
       <div class="col col-0"> <input type="checkbox" [(ngModel)]="item.selected" /> </div>
-      <div class="col col-1" data-label="No">{{ i+1 }}</div>
+      <div class="col col-1" data-label="No">{{ i + 1 }}</div>
       <div class="col col-2" data-label="CertificateNumber">
-        <a class="CertificateNumber" (click)="viewCertificate(data.id)">{{ item.alias }}</a>
+        <a class="CertificateNumber" (click)="viewCertificate(data.id)">{{ item.certName }}</a>
       </div>
     </li>
   </div>

@@ -41,8 +41,8 @@ export class SignupComponent implements OnInit {
 
     this.myForm = this.fb.group({
 
-      // firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]*$'), Validators.maxLength(20), this.firstNameValidator]],
-      firstName: ['', Validators.compose([Validators.required, this.firstNameValidator])],
+       firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]*$'), Validators.maxLength(20)]],
+      //firstName: ['', Validators.compose([Validators.required, this.firstNameValidator])],
       lastName: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Za-z]*$'), Validators.maxLength(20)])],
       userName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9]*$'), Validators.minLength(8), Validators.maxLength(16), this.containsLetterValidator])],
       email: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=(?:[^.]*.){1,2}[^.]*$)[a-zA-Z0-9._%+-]+[a-zA-Z0-9]@(gmail|yahoo|hotmail|rediffmail|ymail)\.com$/)])],
@@ -191,22 +191,22 @@ export class SignupComponent implements OnInit {
     }
 
   }
-  errorCheckFirstName() {
+  // errorCheckFirstName() {
 
-    if (this.myForm.get('firstName')?.hasError('required')) {
-      this.firstnameerror = "*Required";
-      this.submitted = true;
-    } else if (this.myForm.get('firstName')?.hasError('pattern') || this.myForm.get('firstName')?.hasError('maxlength')) {
-      this.firstnameerror = "Enter valid input";
-      this.submitted = true;
+  //   if (this.myForm.get('firstName')?.hasError('required')) {
+  //     this.firstnameerror = "*Required";
+  //     this.submitted = true;
+  //   } else if (this.myForm.get('firstName')?.hasError('pattern') || this.myForm.get('firstName')?.hasError('maxlength')) {
+  //     this.firstnameerror = "Enter valid input";
+  //     this.submitted = true;
 
-    }
-    else {
-      this.firstnameerror = "";
-      this.submitted = false;
-    }
+  //   }
+  //   else {
+  //     this.firstnameerror = "";
+  //     this.submitted = false;
+  //   }
 
-  }
+  // }
   errorCheckLastName() {
 
     if (this.myForm.get('lastName')?.hasError('pattern') || (this.myForm.get('lastName')?.hasError('maxlength'))) {
@@ -225,7 +225,24 @@ export class SignupComponent implements OnInit {
     }
 
   }
+  errorCheckFirstName() {
 
+    if (this.myForm.get('firstName')?.hasError('pattern') || (this.myForm.get('firstName')?.hasError('maxlength'))) {
+      this.firstnameerror = "Enter valid input";
+      console.log(this.formerror);
+      this.submitted = true;
+    }
+    else if (this.myForm.get('firstName')?.hasError('required')) {
+      this.firstnameerror = "*Required";
+      this.submitted = true;
+      console.log(this.formerror);
+    }
+    else {
+      this.firstnameerror = "";
+      this.submitted = false;
+    }
+
+  }
   registerUser() {
     this.formerror = "";
     const data = {
