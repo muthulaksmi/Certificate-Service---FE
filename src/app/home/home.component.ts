@@ -46,7 +46,7 @@ disassociate() {
   this.http.delete(url, httpOptions).subscribe(
     (response) => {
     console.log(response);      
-    this.openDialog('Disassociation Successful!');
+    this.openDialog('Success:Disassociation Successful!');
     this.myCertificate();
       
     },
@@ -55,7 +55,7 @@ disassociate() {
     });
   }
   else{
-    this.openDialog("Select the certificate to disassociate!")
+    this.openDialog("Warning:Select the certificate to disassociate!")
   }
 }
 
@@ -82,7 +82,7 @@ associate() {
   this.http.post(url, data).subscribe(
     (response) => {
     console.log(response);      
-    this.openDialog('Association Successful!');
+    this.openDialog('Success: Association Successful!');
     this.ListCertificate();  
     },
     (error: any) => {
@@ -90,7 +90,7 @@ associate() {
     });
   }
   else {
-    this.openDialog("Select the certificate to associate")
+    this.openDialog("Warning: Select the certificate to associate")
   }
 
 }
@@ -256,14 +256,17 @@ associate() {
   @Component({
     selector: 'app-dialog',
     template: `
-      <h2 mat-dialog-title>Success</h2>
-      <mat-dialog-content>
-        {{ data.message }}
+      <!-- <h2 mat-dialog-title>Success</h2> -->
+      <mat-dialog-content style="color:black"><b>
+        {{ data.message }}</b>
       </mat-dialog-content>
       <mat-dialog-actions>
         <button mat-button (click)="onNoClick()">OK</button>
       </mat-dialog-actions>
-    `
+    `,
+    
+    
+
   })
   export class DialogComponent1 {
   
