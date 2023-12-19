@@ -1,7 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, Inject, OnInit } from '@angular/core';
+import { HttpClient, HttpHeaders  } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth.service';
+import { MatDialog } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
 
 @Component({
   selector: 'app-home',
@@ -14,7 +18,41 @@ export class HomeComponent implements OnInit {
   disassociateb = false;
 
 disassociate() {
-throw new Error('Method not implemented.');
+
+  const selectedIds = [];
+  for (const data of this.jsonData) {
+    for (const item of data.certificates) {
+      if (item.selected) {
+        selectedIds.push(data.id);
+      }
+    }
+  }
+  console.log('Selected IDs:', selectedIds);  
+  const data ={
+    userName: this.username,
+    keyStoreIds: selectedIds
+  }
+  console.log("Data to send: ",data);
+  const httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json'
+    }),
+    body: data // set the request body
+  };
+   let url = "http://localhost:8080/admin/disassociate";
+  //let url = `http://localhost:8080/admin/disassociate?userName=${this.username}&keyStoreIds=${selectedIds.join(',')}`;
+  //sending data to associate.
+  this.http.delete(url, httpOptions).subscribe(
+    (response) => {
+    console.log(response);      
+    this.openDialog('Disassociation Successful!');
+    this.myCertificate();
+      
+    },
+    (error: any) => {
+      console.log(error);
+    });
+
 }
 
 
@@ -39,7 +77,8 @@ associate() {
   this.http.post(url, data).subscribe(
     (response) => {
     console.log(response);      
-      
+    this.openDialog('Association Successful!');
+    this.ListCertificate();  
     },
     (error: any) => {
       console.log(error);
@@ -59,8 +98,18 @@ associate() {
   jsonData1: any;
   certificateFields: string[]=[];
   certificates: string[]=[];
-  constructor(private http: HttpClient, private router:Router) { }
+  constructor(private http: HttpClient,private authService: AuthService, private router:Router, public dialog: MatDialog) { }
   
+  
+  logout() {
+    // Call authentication service for logout
+    this.authService.logout();
+    // Navigate to sign-in page
+    this.router.navigate(['/login']);
+  }
+
+
+
   ngOnInit() {
    this.username = this.router.lastSuccessfulNavigation?.extras.state?.['name'];
    console.log("username: ",this.username);
@@ -70,23 +119,34 @@ associate() {
     console.log("username ", this.username, this.router.lastSuccessfulNavigation);
   }
 
+  openDialog(msg: string): void {
+    const dialogRef = this.dialog.open(DialogComponent1, {
+      width: '250px',
+      data: { message: msg }
+    });
+
+    dialogRef.afterClosed().subscribe(() => {
+      console.log('The dialog was closed');
+    });
+  }
+
   myCertificate(){
 
     this.associateb = false;
     this.disassociateb = true;  
     this.viewHeader = false;
     this.showHeader = true;
+    this.jsonData ="";
     const url = "http://localhost:8080/auth/getmycertificates?userName="+this.username; 
     console.log(url);
     this.getData(url).subscribe(
       (data) => {
         this.jsonData = data;
         console.log(data);
-        // console.log('Data received:', data[0].certName);
         
       },
       (error) => {
-        console.error('Error:', error);
+        console.error('Error:', error.message);
       }
     );
 
@@ -155,7 +215,7 @@ associate() {
     this.disassociateb = false;
     this.showHeader = true;
     this.viewHeader = false;
-    const url = "http://localhost:8080/certificates"; 
+    const url = "http://localhost:8080/certificates?userName="+this.username; 
     this.getData(url).subscribe(
       (data) => {
         this.jsonData = data;
@@ -181,3 +241,34 @@ associate() {
    }
 
   }
+
+
+
+
+  @Component({
+    selector: 'app-dialog',
+    template: `
+      <h2 mat-dialog-title>Success</h2>
+      <mat-dialog-content>
+        {{ data.message }}
+      </mat-dialog-content>
+      <mat-dialog-actions>
+        <button mat-button (click)="onNoClick()">OK</button>
+      </mat-dialog-actions>
+    `
+  })
+  export class DialogComponent1 {
+  
+    constructor(
+      public dialogRef: MatDialogRef<DialogComponent1>,
+      @Inject(MAT_DIALOG_DATA) public data: any,
+      private router: Router
+    ) { }
+  
+    onNoClick(): void {
+      this.dialogRef.close();
+      
+      //Close the dialog
+    }
+  }
+  

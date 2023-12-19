@@ -42,7 +42,6 @@ export class SignupComponent implements OnInit {
     this.myForm = this.fb.group({
 
        firstName: ['', [Validators.required, Validators.pattern('^[a-zA-Z]*$'), Validators.maxLength(20)]],
-      //firstName: ['', Validators.compose([Validators.required, this.firstNameValidator])],
       lastName: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Za-z]*$'), Validators.maxLength(20)])],
       userName: ['', Validators.compose([Validators.required, Validators.pattern('^[a-zA-Z0-9]*$'), Validators.minLength(8), Validators.maxLength(16), this.containsLetterValidator])],
       email: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=(?:[^.]*.){1,2}[^.]*$)[a-zA-Z0-9._%+-]+[a-zA-Z0-9]@(gmail|yahoo|hotmail|rediffmail|ymail)\.com$/)])],
@@ -78,26 +77,26 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  firstNameValidator(control: AbstractControl): ValidationErrors | null {
-    console.log("Come here");
-    const value = control.value as string;
-    const hasMaxLength = value.length <= 20;
-    const isRequired = !!value.trim();
-    const chartest = /^[a-zA-Z]*$/.test(value);
-    const isValid = hasMaxLength && isRequired && chartest;
-    return isValid ? null : { 'firstNameCheck': true };
-  }
+  // firstNameValidator(control: AbstractControl): ValidationErrors | null {
+  //   console.log("Come here");
+  //   const value = control.value as string;
+  //   const hasMaxLength = value.length <= 20;
+  //   const isRequired = !!value.trim();
+  //   const chartest = /^[a-zA-Z]*$/.test(value);
+  //   const isValid = hasMaxLength && isRequired && chartest;
+  //   return isValid ? null : { 'firstNameCheck': true };
+  // }
 
-  getErrorMessage(controlName: string) {
-    const control = this.myForm.get(controlName);
-    if (control?.hasError('required')) {
-      this.firstnameerror = 'Required';
+  // getErrorMessage(controlName: string) {
+  //   const control = this.myForm.get(controlName);
+  //   if (control?.hasError('required')) {
+  //     this.firstnameerror = 'Required';
 
-    } else if ((control?.hasError('maxlength')) || (control?.hasError('pattern'))) {
-      this.firstnameerror = 'Provide a valid input (only letters allowed)';
-    } else
-      this.firstnameerror = "";
-  }
+  //   } else if ((control?.hasError('maxlength')) || (control?.hasError('pattern'))) {
+  //     this.firstnameerror = 'Provide a valid input (only letters allowed)';
+  //   } else
+  //     this.firstnameerror = "";
+  // }
 
 
 
