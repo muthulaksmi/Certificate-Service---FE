@@ -42,6 +42,7 @@ disassociate() {
    let url = "http://localhost:8080/admin/disassociate";
   //let url = `http://localhost:8080/admin/disassociate?userName=${this.username}&keyStoreIds=${selectedIds.join(',')}`;
   //sending data to associate.
+  if (selectedIds.length > 0){
   this.http.delete(url, httpOptions).subscribe(
     (response) => {
     console.log(response);      
@@ -52,7 +53,10 @@ disassociate() {
     (error: any) => {
       console.log(error);
     });
-
+  }
+  else{
+    this.openDialog("Select the certificate to disassociate!")
+  }
 }
 
 
@@ -74,6 +78,7 @@ associate() {
   console.log("Data to send: ",data);
   let url = "http://localhost:8080/admin/associate";
   //sending data to associate.
+  if (selectedIds.length > 0){
   this.http.post(url, data).subscribe(
     (response) => {
     console.log(response);      
@@ -83,7 +88,10 @@ associate() {
     (error: any) => {
       console.log(error);
     });
-  
+  }
+  else {
+    this.openDialog("Select the certificate to associate")
+  }
 
 }
 
