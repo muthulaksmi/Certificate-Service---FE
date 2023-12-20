@@ -150,12 +150,12 @@ a:hover{
    border-collapse: collapse; 
 }
 .td1{
-  width: 50%;
+  width: 20%;
   padding-top: 10px;
    border: 1px solid slateblue; 
 }
 .td2{
-  width: 250px;
+  width: 600px;
   padding-top: 10px;
    border: 1px solid slateblue; 
 }
@@ -208,6 +208,8 @@ a:hover{
   margin-top: 6%;
   letter-spacing: 0.05em;
 }
+
+
 
 
 
