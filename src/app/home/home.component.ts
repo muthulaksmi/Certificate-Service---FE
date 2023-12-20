@@ -13,6 +13,12 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+  nameShrink(name: string): string {
+    if (name.length > 20) {
+      return (name.substring(0, 20) + "....");
+    }
+    return name;
+  }
 
   associateb = false;
   disassociateb = false;
@@ -46,7 +52,7 @@ disassociate() {
   this.http.delete(url, httpOptions).subscribe(
     (response) => {
     console.log(response);      
-    this.openDialog('Success:Disassociation Successful!');
+    this.openDialog('Disassociation Successful!');
     this.myCertificate();
       
     },
@@ -55,7 +61,7 @@ disassociate() {
     });
   }
   else{
-    this.openDialog("Warning:Select the certificate to disassociate!")
+    this.openDialog("Select a certificate to disassociate!")
   }
 }
 
@@ -82,7 +88,7 @@ associate() {
   this.http.post(url, data).subscribe(
     (response) => {
     console.log(response);      
-    this.openDialog('Success: Association Successful!');
+    this.openDialog('Association Successful!');
     this.ListCertificate();  
     },
     (error: any) => {
@@ -90,7 +96,7 @@ associate() {
     });
   }
   else {
-    this.openDialog("Warning: Select the certificate to associate")
+    this.openDialog("Select a certificate to associate")
   }
 
 }
