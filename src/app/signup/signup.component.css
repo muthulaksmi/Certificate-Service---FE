@@ -1,18 +1,16 @@
-
-
-/* .main1{
-	position: relative; 
-	width: 100%; 
-	height: auto;
-	background-color: linear-gradient(to right, #ff0000, #00ff00); 
-  } */
-main {
-	background-color: #FFFFFF;
-	width: 650px;
-	height: 650px;
-	margin: 3em auto;
+	
+.main {
+	width: 560px;
+	height: 500px;
+	margin: 5% auto;
+	margin-left: 53%;
 	border-radius: 1.5em;
-	box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+	border: 2px solid #e9dada; 
+	margin-right: 2%;
+	box-shadow: 0px 11px 35px 2px rgba(230, 221, 221, 0.14);
+	position: absolute;
+	z-index: 1;
+	background: white;
 }
 .sign {
 	padding-top: 30px;
@@ -24,7 +22,6 @@ main {
 .errorgeneric {
 	height: 1em; 
 	color: red;
-	/* font-size: 0.8em;  */
 	padding: 3% 6%;
 	font-family:  Tahoma, Geneva, Verdana, sans-serif;
 	margin-left: 25%;
@@ -36,7 +33,6 @@ main {
 	}
 
 .lab{
-	margin-left:17%;
 	font-weight: 500;
 	font-size: 14px;
 	color: rgb(22, 20, 20);
@@ -48,42 +44,32 @@ main {
 	height: 1em; 
 	color: red; 
     font-size: 0.8em; 
-	padding-left: 50px;
-	/* white-space: pre-wrap; */
-	/* margin-bottom: 10%; */
+	padding-left: 5px;
 }
-/* .error,
-    .un {
-        width: 48%; Set the width for the elements with a little gap in between 
-        display: inline-block;
-        vertical-align: top;  Align elements to the top
-    } */
 
 .un {
-width: 250px;
+width: 230px;
 color: rgb(38, 50, 56);
-font-weight: 700;
-font-size: 14px;
+font-weight: 350;
+font-size: 12px;
 letter-spacing: 1px;
-background: rgba(136, 126, 126, 0.04);
-padding: 10px 20px;
-border: none;
-border-radius: 20px;
-outline: none;
+ background: rgba(136, 126, 126, 0.04); 
+padding: 5px 5px;
+/* border: */
+/* border-radius: 20px; */
+ /* outline: none;  */
 box-sizing: border-box;
-border: 2px solid rgba(0, 0, 0, 0.02); 
-/* margin-bottom: 50px; */
-margin-left: 46px;
-/* margin-bottom: 27px; */
-font-family: 'Ubuntu', sans-serif;
-height: 40px;
+border:1px solid black; 
+/* margin-left: 46px; */
+font-family: Tahoma, Geneva, Verdana, sans-serif;
+height: 30px;
 }
 
 form.form1 {
-	padding-top: 20px;
+	padding-top: 3%;
 }
 
-.pass {
+/* .pass {
 		width: 76%;
 color: rgb(38, 50, 56);
 font-weight: 700;
@@ -101,20 +87,27 @@ margin-left: 46px;
 text-align: center;
 margin-bottom: 27px;
 font-family: 'Ubuntu', sans-serif;
-}
+} */
 
 
 .un:focus, .pass:focus {
 	border: 2px solid rgba(0, 0, 0, 0.18) !important;
 
 }
+.left-image{
+	background-image: url('/assets/images1.jpg');
+	background-position: center;
+	background-size: cover;
+	width:100%;
+	height: 100vh;
+}
 
-@media (max-width: 600px) {
+/* @media (max-width: 600px) {
 	.main {
-		border-radius: 0px;
+		border-radius: 10px;
 	}
 
-}
+} */
  .submit {
 	cursor: pointer;
 	border-radius: 5em; 
@@ -133,9 +126,16 @@ font-family: 'Ubuntu', sans-serif;
 
 .main table td {
     height: 70px; 
-	padding-bottom: 5%;
+
+}
+td{
+	padding-right: 30px;
 }
 
+ /* .left-image{
+	width:100%;
+	height: 100vh;
+}  */
 
 .tooltip-content {
 	position: absolute;

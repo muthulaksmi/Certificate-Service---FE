@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit, SecurityContext } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidatorFn, ValidationErrors } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
@@ -14,6 +14,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 
 export class SignupComponent implements OnInit {
+
+
   message = "";
   submitted = false;
   formerror = "";
@@ -23,7 +25,8 @@ export class SignupComponent implements OnInit {
   emailError = "";
   passwordError = "";
   confirmPasswordError = "";
-
+  answererror="";
+  secError="";
 
 
   myForm!: FormGroup;
@@ -47,6 +50,8 @@ export class SignupComponent implements OnInit {
       email: ['', Validators.compose([Validators.required, Validators.pattern(/^(?=(?:[^.]*.){1,2}[^.]*$)[a-zA-Z0-9._%+-]+[a-zA-Z0-9]@(gmail|yahoo|hotmail|rediffmail|ymail)\.com$/)])],
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16), this.noSpacesValidator])],
       confirmPassword: ['', Validators.compose([Validators.required])],
+      secQuestion: ['', Validators.compose([Validators.required])],
+      answer: ['', Validators.compose([Validators.required])],
     },
       {
         validator: this.passwordMatchValidator('password', 'confirmPassword')
@@ -56,7 +61,32 @@ export class SignupComponent implements OnInit {
   constructor(private fb: FormBuilder, private router: Router, private http: HttpClient, public dialog: MatDialog) {
 
   }
+  errorCheckSecQuestion() {
+    
+    if (this.myForm.get('secQuestion')?.hasError('required')){
+      this.secError ="*Required";
+      this.submitted=true;
+    } else {
+      this.secError = "";
+      this.submitted=false;
+    }
 
+  }
+    
+
+  errorCheckAnswer() {
+
+    if (this.myForm.get('answer')?.hasError('required')) {
+      this.answererror = "*Required";
+      this.submitted = true;
+      console.log(this.formerror);
+    }
+    else {
+      this.answererror = "";
+      this.submitted = false;
+    }
+
+  }
 
   noSpacesValidator(control: AbstractControl): ValidationErrors | null {
     const hasNoSpaces = /\s/.test(control.value);
@@ -77,27 +107,7 @@ export class SignupComponent implements OnInit {
     };
   }
 
-  // firstNameValidator(control: AbstractControl): ValidationErrors | null {
-  //   console.log("Come here");
-  //   const value = control.value as string;
-  //   const hasMaxLength = value.length <= 20;
-  //   const isRequired = !!value.trim();
-  //   const chartest = /^[a-zA-Z]*$/.test(value);
-  //   const isValid = hasMaxLength && isRequired && chartest;
-  //   return isValid ? null : { 'firstNameCheck': true };
-  // }
-
-  // getErrorMessage(controlName: string) {
-  //   const control = this.myForm.get(controlName);
-  //   if (control?.hasError('required')) {
-  //     this.firstnameerror = 'Required';
-
-  //   } else if ((control?.hasError('maxlength')) || (control?.hasError('pattern'))) {
-  //     this.firstnameerror = 'Provide a valid input (only letters allowed)';
-  //   } else
-  //     this.firstnameerror = "";
-  // }
-
+  
 
 
   errorCheckConfirmPassword() {
@@ -123,7 +133,6 @@ export class SignupComponent implements OnInit {
   checkconPass() {
     if (!this.myForm.get('confirmPassword')?.hasError('required')) {
       if (!this.myForm.hasError('passwordMismatch')) {
-        console.log("Come here");
         this.confirmPasswordError = "";
         console.log(this.formerror);
       }
@@ -140,7 +149,7 @@ export class SignupComponent implements OnInit {
       this.submitted = true;
       console.log(this.formerror);
     } else if (this.myForm.get('password')?.hasError('minlength') || this.myForm.get('password')?.hasError('maxlength') || this.myForm.get('password')?.hasError('hasSpaces')) {
-      this.passwordError = "Enter Valid Input";
+      this.passwordError = "*Enter Valid Input";
       console.log(this.formerror);
       this.submitted = true;
     } else {
@@ -181,7 +190,7 @@ export class SignupComponent implements OnInit {
       console.log(this.formerror);
 
     } else if (this.myForm.get('userName')?.hasError('minlength') || this.myForm.get('userName')?.hasError('maxlength') || (this.myForm.get('userName')?.hasError('pattern')) || (this.myForm.get('userName')?.hasError('containsLetter'))) {
-      this.userNameError = "Enter Valid Input";
+      this.userNameError = "*Enter Valid Input";
       console.log(this.formerror);
       this.submitted = true;
     } else {
@@ -190,26 +199,11 @@ export class SignupComponent implements OnInit {
     }
 
   }
-  // errorCheckFirstName() {
 
-  //   if (this.myForm.get('firstName')?.hasError('required')) {
-  //     this.firstnameerror = "*Required";
-  //     this.submitted = true;
-  //   } else if (this.myForm.get('firstName')?.hasError('pattern') || this.myForm.get('firstName')?.hasError('maxlength')) {
-  //     this.firstnameerror = "Enter valid input";
-  //     this.submitted = true;
-
-  //   }
-  //   else {
-  //     this.firstnameerror = "";
-  //     this.submitted = false;
-  //   }
-
-  // }
   errorCheckLastName() {
 
     if (this.myForm.get('lastName')?.hasError('pattern') || (this.myForm.get('lastName')?.hasError('maxlength'))) {
-      this.lastNameError = "Enter valid input";
+      this.lastNameError = "*Enter valid input";
       console.log(this.formerror);
       this.submitted = true;
     }
@@ -227,7 +221,7 @@ export class SignupComponent implements OnInit {
   errorCheckFirstName() {
 
     if (this.myForm.get('firstName')?.hasError('pattern') || (this.myForm.get('firstName')?.hasError('maxlength'))) {
-      this.firstnameerror = "Enter valid input";
+      this.firstnameerror = "*Enter valid input";
       console.log(this.formerror);
       this.submitted = true;
     }
@@ -251,6 +245,8 @@ export class SignupComponent implements OnInit {
       email: this.myForm.controls['email'].value,
       password: this.myForm.controls['password'].value,
       role: "user",
+      question: this.myForm.controls['secQuestion'].value,
+      answer: this.myForm.controls['answer'].value
     };
 
     // if (this.myForm.controls['firstName'].value !== "" && this.myForm.controls['lastName'].value !== "" && this.myForm.controls['userName'].value !== "" && this.myForm.controls['email'].value !== "" && this.myForm.controls['password'].value !== "" && this.myForm.controls['confirmPassword'].value !== "") {
@@ -286,7 +282,7 @@ export class SignupComponent implements OnInit {
         console.error("Error during post: ", error.error.Message);
         this.formerror = error.error.Message;
       });
-    // }
+    
 
 
 

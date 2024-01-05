@@ -1,0 +1,40 @@
+<div class="main">
+    <form class="form1" id="form1" [formGroup]="myForm" (ngSubmit)="updatePassword()">
+      <table>
+        <tbody>
+        <tr>
+          <td class="td">
+            <div >
+            <label class ="lab" align="center" >Password <span style='color:red;'>*</span></label><br>
+            <input class="un" type="password" formControlName="password" autocomplete="off" value="" (blur)="errorCheckPassword()"><br>
+            <span class="error"> {{ passwordError }}</span><br>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td">
+            <div> 
+            <label class ="lab" align="center" >Confirm Password<span style='color:red;'>*</span></label><br> 
+            
+            <input class="un" type="password" formControlName="conPassword" autocomplete="off" value="" (blur)="errorCheckConPassword()"><br>
+            <span class="error">{{ conPasswordError }}</span><br>
+          </div>
+          </td> 
+        </tr>
+  
+        <tr>
+          <td>
+            <div>
+                <button class="submit" [disabled]="myForm.invalid">Submit</button>
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <td>
+            <p class="errorgeneric"></p>
+          </td>
+        </tr>
+    </tbody>
+    </table>
+    </form>
+  </div>

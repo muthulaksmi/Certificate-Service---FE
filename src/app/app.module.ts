@@ -18,13 +18,14 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewcertificateComponent } from './viewcertificate/viewcertificate.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { ResetComponent, DialogComponent2 } from './reset/reset.component';
 
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
   { path: 'forgot', component: FortgotComponent },
   {path: 'home', component: HomeComponent},
-   
+  { path: 'reset', component: ResetComponent},
   { path: 'login', component: LoginComponent },
 
 ]
@@ -40,6 +41,8 @@ const appRoutes: Routes = [
     ViewcertificateComponent,
     TooltipDirective,
     DialogComponent1,
+    ResetComponent,
+    DialogComponent2,
     
   ],
   imports: [

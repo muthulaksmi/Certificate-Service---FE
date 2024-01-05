@@ -1,0 +1,60 @@
+.main {
+	background-color: #FFFFFF;
+	width: 350px;
+	height: 300px;
+	border-radius: 1.5em;
+    margin-left: 34%;
+    margin-top:8%;
+	box-shadow: 0px 11px 35px 2px rgba(0, 0, 0, 0.14);
+    padding-top: 5%;
+    padding-left:5%;
+
+}
+    .un {
+        width: 150%;
+        color: rgb(38, 50, 56);
+        font-weight: 350;
+        font-size: 12px;
+        letter-spacing: 1px;
+        background: rgba(136, 126, 126, 0.04); 
+        padding: 5px 5px;
+        box-sizing: border-box;
+        border:1px solid black; 
+        font-family: Tahoma, Geneva, Verdana, sans-serif;
+        height: 30px;
+        }
+   
+
+    .submit {
+        cursor: pointer;
+        border-radius: 5em; 
+        border: 0;
+        padding-left: 40px;
+        padding-right: 50px;
+        padding-bottom: 10px;
+        padding-top: 10px;
+        font-family: Tahoma, Geneva, Verdana, sans-serif, sans-serif;
+         margin-left: 25%; 
+        margin-top: 5%;
+
+        font-size: 13px;
+        font-weight: bold;
+        text-align: center;
+    } 
+    
+    .lab{
+        font-weight: 500;
+        font-size: 14px;
+        color: rgb(22, 20, 20);
+    
+    }
+    .error{
+        height: 1em; 
+        color: red; 
+        font-size: 0.8em; 
+        padding-left: 12px;
+    }
+
+    .lab, .un {
+        margin-left: 8%;
+    }

@@ -1,11 +1,12 @@
 <div class="main1">
-  <!-- <div class="left-image"><img src="/assets/datahand.webp" alt="Data Hand Image">  -->
+<div class="left-image">
+<!-- <img src="/assets/images1.jpg" alt="Data Hand Image" class="left-image">   -->
 
 <div class="main">
   <p class="sign" align="center">Sign-up</p>
 
   <form class="form1" id="form1" [formGroup]="myForm" (ngSubmit) ="registerUser()" >
-    <table align="center">
+    <table align="right">
       <tbody>
       <tr>
         <td class="td"> 
@@ -21,7 +22,6 @@
         <td class="td">
           <div>
           <label class ="lab">Last Name<span style='color:red;'>*</span></label><br>
-        
           <input class="un" type="text" required formControlName="lastName" align="center" placeholder="" autocomplete="" value="" (blur)="errorCheckLastName()" ><br>
           <span class="error" matTooltip="Maximum of 20 characters allowed and can only contain alphabets">{{ lastNameError }}</span>
         </div>
@@ -59,6 +59,29 @@
           
           <input class="un" type="password" formControlName="confirmPassword" autocomplete="off" value="" (blur)="errorCheckConfirmPassword()"><br>
           <span class="error">{{confirmPasswordError}}</span>
+        </div>
+        </td> 
+      </tr> 
+      <tr>
+        <td class="td">
+          <div >
+          <label class ="lab" align="center" >Select security question?<span style='color:red;'>*</span></label><br>
+          <select class="un" formControlName="secQuestion" (blur) = errorCheckSecQuestion()>
+            <option value="apple">In which city were you born?</option>
+            <option value="banana">What is the name of your favorite teacher?</option>
+            <option value="orange">What is your favorite food?</option>
+            <option value="grape">What is the name of your best friend in high school?</option>
+            <option>What is your favorite food?</option>
+          </select><br>
+          <span class="error">{{ secError }}</span>
+        </div>
+        </td>
+        <td class="td">
+          <div> 
+          <label class ="lab" align="center" >Answer<span style='color:red;'>*</span></label><br> 
+          
+          <input class="un" formControlName="answer" autocomplete="off" value="" (blur)=errorCheckAnswer()><br>
+          <span class="error">{{answererror}}</span>
         </div>
         </td> 
       </tr> 

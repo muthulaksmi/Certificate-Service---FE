@@ -1,31 +1,52 @@
 <div class="main">
-    <form class="form1" id="form1" [formGroup]="myForm">
+    <form class="form1" id="form1" [formGroup]="myForm" (ngSubmit)="validateUser()">
       <table>
         <tbody>
-        <tr>
-          <td>
-            <div class="lab">
-              <label align="center" style="color:darkorchid">Email</label>
-            </div>
-            </td>
+          <tr>
             <td>
             <div>
-              <input class="un" type="text" align="center" placeholder="" formControlName="email"
-                autocomplete="off" value="" required="" (blur)="errorCheckEmail()">
+              <label class ="lab">User Name<span style='color:red;'>*</span></label><br>
+              <input class="un" type="text" formControlName="userName" placeholder="" value="" autocomplete="off" (blur)="errorCheckUserName()"><br>
+              <span class="error">{{ usernameError }}</span><br>
             </div>
           </td>
+          </tr>
+        <tr>
+          <td class="td">
+            <div >
+            <label class ="lab" align="center" >Select security question?<span style='color:red;'>*</span></label><br>
+            <select class="un" formControlName="secQuestion" (blur)="errorCheckSecQuestion()">
+              <option value="apple">In which city were you born?</option>
+              <option value="banana">What is the name of your favorite teacher?</option>
+              <option value="orange">What is your favorite food?</option>
+              <option value="grape">What is the name of your best friend in high school?</option>
+              <option>What is your favorite food?</option>
+            </select><br>
+            <span class="error">{{secerror}}</span><br>
+          </div>
+          </td>
+        </tr>
+        <tr>
+          <td class="td">
+            <div> 
+            <label class ="lab" align="center" >Answer<span style='color:red;'>*</span></label><br> 
+            
+            <input class="un" formControlName="answer" autocomplete="off" value="" (blur)="errorCheckAnswer()"><br>
+            <span class="error">{{ansError}}</span><br>
+          </div>
+          </td> 
         </tr>
   
         <tr>
-          <td colspan="2">
+          <td>
             <div>
-                <button class="submit">Submit</button>
+                <button class="submit" [disabled]="myForm.invalid">Submit</button>
             </div>
           </td>
         </tr>
         <tr>
-          <td colspan="2">
-            <p class="error" *ngIf ="submitted" align ="center">{{ formerror }}</p>
+          <td>
+            <p class="errorgeneric" *ngIf ="submitted">{{ formerror }}</p>
           </td>
         </tr>
     </tbody>

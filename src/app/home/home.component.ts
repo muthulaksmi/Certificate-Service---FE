@@ -13,6 +13,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+
   nameShrink(name: string): string {
     if (name.length > 20) {
       return (name.substring(0, 20) + "....");
