@@ -13,7 +13,7 @@
           <div>
             <label class ="lab">First Name<span style='color:red;'>*</span></label><br>
             
-          <input class="un" formControlName="firstName" align="center" autocomplete="off"
+          <input class="un" formControlName="firstName" [(ngModel)]="firstName" align="center" autocomplete="off"
             value="" required (blur)="errorCheckFirstName()" ><br>
             <span class="error" matTooltip="Maximum of 20 characters allowed and can only contain alphabets">{{ firstnameerror }}</span> 
           </div>
@@ -22,7 +22,7 @@
         <td class="td">
           <div>
           <label class ="lab">Last Name<span style='color:red;'>*</span></label><br>
-          <input class="un" type="text" required formControlName="lastName" align="center" placeholder="" autocomplete="" value="" (blur)="errorCheckLastName()" ><br>
+          <input class="un" [(ngModel)]="lastName" type="text" required formControlName="lastName" align="center" placeholder="" autocomplete="" value="" (blur)="errorCheckLastName()" ><br>
           <span class="error" matTooltip="Maximum of 20 characters allowed and can only contain alphabets">{{ lastNameError }}</span>
         </div>
         </td>
@@ -31,7 +31,7 @@
         <td class="td">
           <div>
           <label class ="lab">User Name<span style='color:red;'>*</span></label><br>
-          <input class="un" type="text" formControlName="userName" placeholder="" value="" autocomplete="off" (blur)="errorCheckUserName()"><br>
+          <input class="un" [(ngModel)]="userName" type="text" formControlName="userName" placeholder="" value="" autocomplete="off" (blur)="errorCheckUserName()"><br>
           <span class="error" matTooltip="8 to 16 characters long and can only contain alphanumeric characters">{{userNameError}}</span>
         </div>
 
@@ -39,7 +39,7 @@
         <td class="td">
           <div>
           <label class ="lab">Email<span style='color:red;'>*</span></label> <br>
-          <input class="un" type="email" formControlName="email" autocomplete="off" value="" (blur)="errorCheckEmail()" required><br>
+          <input class="un" type="email" [(ngModel)]="email" formControlName="email" autocomplete="off" value="" (blur)="errorCheckEmail()" required><br>
           <span class="error" matTooltip="Provide email ID with standard format, for example: someone@example.com">{{emailError}}</span>
         </div>
         </td>
@@ -49,15 +49,15 @@
           <div >
           <label class ="lab" align="center" >Password<span style='color:red;'>*</span></label><br>
         
-          <input class="un" type="password" formControlName="password" placeholder="" autocomplete="new-password" value="" (blur)="errorCheckPassword()" ><br>
-          <span class="error"matTooltip="8 to 16 characters long and can contain alphanumeric and special characters">{{passwordError}}</span>
+          <input class="un" type="password" [(ngModel)]="password" formControlName="password" placeholder="" autocomplete="new-password" value="" (blur)="errorCheckPassword()" ><br>
+          <span class="error" matTooltip="8 to 16 characters long and can contain alphanumeric and special characters">{{passwordError}}</span>
         </div>
         </td>
         <td class="td">
           <div> 
           <label class ="lab" align="center" >Confirm Password<span style='color:red;'>*</span></label><br> 
           
-          <input class="un" type="password" formControlName="confirmPassword" autocomplete="off" value="" (blur)="errorCheckConfirmPassword()"><br>
+          <input class="un" type="password" [(ngModel)]="confirmPassword" formControlName="confirmPassword" autocomplete="off" value="" (blur)="errorCheckConfirmPassword()"><br>
           <span class="error">{{confirmPasswordError}}</span>
         </div>
         </td> 
@@ -66,7 +66,7 @@
         <td class="td">
           <div >
           <label class ="lab" align="center" >Select security question?<span style='color:red;'>*</span></label><br>
-          <select class="un" formControlName="secQuestion" (blur) = errorCheckSecQuestion()>
+          <select class="un" [(ngModel)]="secQuestion" formControlName="secQuestion" (blur) = errorCheckSecQuestion()>
             <option value="apple">In which city were you born?</option>
             <option value="banana">What is the name of your favorite teacher?</option>
             <option value="orange">What is your favorite food?</option>
@@ -80,15 +80,18 @@
           <div> 
           <label class ="lab" align="center" >Answer<span style='color:red;'>*</span></label><br> 
           
-          <input class="un" formControlName="answer" autocomplete="off" value="" (blur)=errorCheckAnswer()><br>
+          <input class="un" type="password" [(ngModel)]="answer" formControlName="answer" autocomplete="off" value="" (blur)=errorCheckAnswer()><br>
           <span class="error">{{answererror}}</span>
         </div>
         </td> 
       </tr> 
             
       <tr>
-        <td colspan="2" class="td">
+        <td class="td">
           <button class="submit" [disabled]="myForm.invalid"> Submit </button>
+        </td>
+        <td>
+          <button class="submit" (click)="reset()"> Reset </button>
         </td>
       </tr>
       <tr colspan="2">

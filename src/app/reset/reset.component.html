@@ -7,7 +7,7 @@
             <div >
             <label class ="lab" align="center" >Password <span style='color:red;'>*</span></label><br>
             <input class="un" type="password" formControlName="password" autocomplete="off" value="" (blur)="errorCheckPassword()"><br>
-            <span class="error"> {{ passwordError }}</span><br>
+            <span class="error" matTooltip="8 to 16 characters long and can contain alphanumeric and special characters"> {{ passwordError }}</span><br>
           </div>
           </td>
         </tr>

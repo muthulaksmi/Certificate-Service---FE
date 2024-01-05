@@ -15,6 +15,28 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 export class SignupComponent implements OnInit {
 
+  reset() {
+    this.firstName ="";
+    this.lastName ="";
+    this.userName ="";
+    this.email ="";
+    this.password ="";
+    this.confirmPassword ="";
+    this.secQuestion ="";
+    this.answer ="";
+    this.formerror = "";
+    this.firstnameerror = "";
+    this.lastNameError = "";
+    this.userNameError = "";
+    this.emailError = "";
+    this.passwordError = "";
+    this.confirmPasswordError = "";
+    this.answererror="";
+    this.secError="";
+  
+
+}
+
 
   message = "";
   submitted = false;
@@ -27,7 +49,14 @@ export class SignupComponent implements OnInit {
   confirmPasswordError = "";
   answererror="";
   secError="";
-
+  firstName ="";
+  lastName="";
+  userName="";
+  email="";
+  password="";
+  confirmPassword="";
+  secQuestion="";
+  answer="";
 
   myForm!: FormGroup;
   private url = 'http://localhost:8080/auth/register';
