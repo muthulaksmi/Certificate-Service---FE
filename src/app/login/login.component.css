@@ -23,7 +23,7 @@ a {
 
 .sign {
   padding-top: 4%;
-  padding-left: 30%;
+  padding-left: 40%;
   color: #6c55aa;
   font-size: 25px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -38,35 +38,23 @@ font-weight: 700;
 font-size: 14px;
 letter-spacing: 1px;
 background: rgba(136, 126, 126, 0.04);
-padding: 10px 20px;
+/* padding: 10px 10px; */
 border: none;
 border-radius: 20px;
 outline: none;
 box-sizing: border-box;
 border: 2px solid rgba(0, 0, 0, 0.02); 
-margin-left: 35%;
+/* margin-left: 5%; */
 font-family: 'Ubuntu', sans-serif;
 height: 40px;
 
 }
 
 form.form1 {
-  padding-top: 11%;
+  padding-top: 5%;
 }
 
 
-
-
-.forgot {
-  text-shadow: 0px 0px 3px rgba(117, 117, 117, 0.12);
-  color: black;
-  font-weight: 500;
-  overflow: visible;
-  white-space: nowrap;
-  padding-left: 62%;
-  text-align: center;
-  
-}
 
 
 
@@ -86,7 +74,7 @@ form.form1 {
 	padding-bottom: 10px;
 	padding-top: 10px;
 	font-family: Tahoma, Geneva, Verdana, sans-serif, sans-serif;
-	margin-left: 50%;
+	margin-left: 40%;
 	margin-top: 5%;
   margin-bottom: 10%;
 	font-size: 13px;
@@ -109,31 +97,40 @@ overflow: visible;
   height: 1em; 
   color: red; 
   font-size: 0.8em; 
-  padding-left: 37%;
+  padding-left: 5%;
   
-  /* padding-left: 50px; */
-  /* overflow: visible; */
 }
 
 .lab {
   font-weight: 500;
   font-size: 14px;
-  margin-left: 75%;
-  margin-bottom: 20%;
-  overflow: visible;
-  white-space: nowrap;
+  margin-left: 55%;
+  margin-top: 4%;
+  padding-top: 3%; 
+  margin-bottom: 17%;
+  
+  /* overflow: visible; */
+  /* white-space: nowrap; */
 
+}
+.forgot {
+  padding-top: 1%;
+  margin-left: 50%;
+}
+.signup {
+  margin-left:75%;
 }
 
 .main table td {
   height: 10vh;
+  width: 50%;
 }
 
 .h1 {
   text-align: left;
   flex: 1;
 color: rgb(28, 39, 197);
-padding-left: 20%;
+padding-left: 25%;
 white-space: nowrap; 
 letter-spacing: .01em;    
 font-size: 180%;
@@ -147,17 +144,9 @@ overflow: visible;
   flex: 1;
   flex-direction: column;
 }
-.signup {
-  color: black;
-  font-weight: 500;
-  margin-top: 2%;
-  overflow: visible;
-  padding-left: 100%; 
-  white-space: nowrap;
-  margin-left: 15%;
-}
 
-/* @media (max-width: 767px) {
+/* 
+@media (max-width: 767px) {
 .left {
   flex-direction: column; 
 }
@@ -174,7 +163,7 @@ overflow: visible;
 
 .sign {
   padding-left: 10%; 
-  margin-bottom: 10%;
+  margin-bottom: 5%;
 }
 
 .lab {

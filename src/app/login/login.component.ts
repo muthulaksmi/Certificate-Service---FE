@@ -9,6 +9,10 @@ import { Router, NavigationExtras } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+navigiateForgot() {
+    this.router.navigate(['/forgot'])
+}
   //  username: string = '';
   //  password: string = '';
   private apiUrl = "http://localhost:8080/auth/login";
