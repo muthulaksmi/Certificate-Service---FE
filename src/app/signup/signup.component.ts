@@ -16,16 +16,20 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 export class SignupComponent implements OnInit {
 
   reset() {
-    this.firstName ="";
-    this.lastName ="";
-    this.userName ="";
-    this.email ="";
-    this.password ="";
-    this.confirmPassword ="";
-    this.secQuestion ="";
-    this.answer ="";
+    console.log("Error here");
+    this.myForm.get('firstName')?.setValue('');
+    this.myForm.get('lastName')?.setValue('');
+    this.myForm.get('userName')?.setValue('');
+    this.myForm.get('email')?.setValue('');
+    this.myForm.get('password')?.setValue('');
+    console.log("Error here");
+    this.myForm.get('confirmPassword')?.setValue('');
+    this.myForm.get('secQuestion')?.setValue('');
+
+    this.myForm.get('answer')?.setValue('');
     this.formerror = "";
     this.firstnameerror = "";
+    console.log("Error here");
     this.lastNameError = "";
     this.userNameError = "";
     this.emailError = "";
@@ -49,14 +53,6 @@ export class SignupComponent implements OnInit {
   confirmPasswordError = "";
   answererror="";
   secError="";
-  firstName ="";
-  lastName="";
-  userName="";
-  email="";
-  password="";
-  confirmPassword="";
-  secQuestion="";
-  answer="";
 
   myForm!: FormGroup;
   private url = 'http://localhost:8080/auth/register';
@@ -80,7 +76,7 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16), this.noSpacesValidator])],
       confirmPassword: ['', Validators.compose([Validators.required])],
       secQuestion: ['', Validators.compose([Validators.required])],
-      answer: ['', Validators.compose([Validators.required])],
+      answer: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Za-z ]*$'), Validators.minLength(5), Validators.maxLength(20)])],
     },
       {
         validator: this.passwordMatchValidator('password', 'confirmPassword')
@@ -108,7 +104,11 @@ export class SignupComponent implements OnInit {
     if (this.myForm.get('answer')?.hasError('required')) {
       this.answererror = "*Required";
       this.submitted = true;
-      console.log(this.formerror);
+    } 
+    else if (((this.myForm.get('answer')?.hasError('pattern')) || ((this.myForm.get('answer')?.hasError('minlength')) || (this.myForm.get('answer')?.hasError('maxlength')))))
+    {
+      this.answererror = "*Enter valid input";
+      this.submitted = true;
     }
     else {
       this.answererror = "";
@@ -277,7 +277,7 @@ export class SignupComponent implements OnInit {
       question: this.myForm.controls['secQuestion'].value,
       answer: this.myForm.controls['answer'].value
     };
-
+    console.log(data);
     // if (this.myForm.controls['firstName'].value !== "" && this.myForm.controls['lastName'].value !== "" && this.myForm.controls['userName'].value !== "" && this.myForm.controls['email'].value !== "" && this.myForm.controls['password'].value !== "" && this.myForm.controls['confirmPassword'].value !== "") {
 
     //  this.errorCheckFirstName();
@@ -308,7 +308,7 @@ export class SignupComponent implements OnInit {
       (error: any) => {
         console.log(" Error here:  ", error);
         this.submitted = true;
-        console.error("Error during post: ", error.error.Message);
+        console.error("Error during post: ", error);
         this.formerror = error.error.Message;
       });
     

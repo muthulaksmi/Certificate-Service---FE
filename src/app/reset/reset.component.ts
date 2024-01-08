@@ -134,7 +134,7 @@ checkconPass() {
 
 }
 @Component({
-  selector: 'app-dialog',
+  selector: 'app-dialog1',
   template: `
     <h2 mat-dialog-title>Success</h2>
     <mat-dialog-content>
