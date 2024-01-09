@@ -76,7 +76,7 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16), this.noSpacesValidator])],
       confirmPassword: ['', Validators.compose([Validators.required])],
       secQuestion: ['', Validators.compose([Validators.required])],
-      answer: ['', Validators.compose([Validators.required, Validators.pattern('^[A-Za-z ]*$'), Validators.minLength(5), Validators.maxLength(20)])],
+      answer: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z][a-zA-Z\s]*[a-zA-Z]$/), Validators.minLength(5), Validators.maxLength(20)])],
     },
       {
         validator: this.passwordMatchValidator('password', 'confirmPassword')
