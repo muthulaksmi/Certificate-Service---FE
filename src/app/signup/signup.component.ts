@@ -76,7 +76,7 @@ export class SignupComponent implements OnInit {
       password: ['', Validators.compose([Validators.required, Validators.minLength(8), Validators.maxLength(16), this.noSpacesValidator])],
       confirmPassword: ['', Validators.compose([Validators.required])],
       secQuestion: ['', Validators.compose([Validators.required])],
-      answer: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z][a-zA-Z\s]*[a-zA-Z]$/), Validators.minLength(5), Validators.maxLength(20)])],
+      answer: ['', Validators.compose([Validators.required, Validators.pattern(/^[a-zA-Z][a-zA-Z\s]*[a-zA-Z]$/), Validators.maxLength(20)])],
     },
       {
         validator: this.passwordMatchValidator('password', 'confirmPassword')
@@ -105,7 +105,7 @@ export class SignupComponent implements OnInit {
       this.answererror = "*Required";
       this.submitted = true;
     } 
-    else if (((this.myForm.get('answer')?.hasError('pattern')) || ((this.myForm.get('answer')?.hasError('minlength')) || (this.myForm.get('answer')?.hasError('maxlength')))))
+    else if (((this.myForm.get('answer')?.hasError('pattern')) || (this.myForm.get('answer')?.hasError('maxlength'))))
     {
       this.answererror = "*Enter valid input";
       this.submitted = true;

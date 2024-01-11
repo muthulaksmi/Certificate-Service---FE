@@ -82,7 +82,7 @@
           <label class ="lab" align="center">Answer<span style='color:red;'>*</span></label><br> 
           
           <input class="un" formControlName="answer" autocomplete="off" value="" (blur)=errorCheckAnswer()><br>
-          <span class="error">{{answererror}}</span>
+          <span class="error" matTooltip="Maximum of 20 characters allowed can contain only alphabets">{{answererror}}</span>
         </div>
         </td> 
       </tr> 
