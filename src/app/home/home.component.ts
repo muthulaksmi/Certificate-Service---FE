@@ -6,13 +6,15 @@ import { AuthService } from '../auth.service';
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit {
+
+  alertAt = 15;
+  startTimer = true;
 
   nameShrink(name: string): string {
     if (name.length > 20) {
@@ -44,7 +46,7 @@ disassociate() {
     headers: new HttpHeaders({
       'Content-Type': 'application/json'
     }),
-    body: data // set the request body
+     body: data // set the request body
   };
    let url = "http://localhost:8080/admin/disassociate";
   //let url = `http://localhost:8080/admin/disassociate?userName=${this.username}&keyStoreIds=${selectedIds.join(',')}`;
@@ -113,7 +115,7 @@ associate() {
   jsonData1: any;
   certificateFields: string[]=[];
   certificates: string[]=[];
-  constructor(private http: HttpClient,private authService: AuthService, private router:Router, public dialog: MatDialog) { }
+  constructor(private http: HttpClient, private authService: AuthService, private router:Router, public dialog: MatDialog) { }
   
   
   logout() {

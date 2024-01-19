@@ -19,7 +19,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ViewcertificateComponent } from './viewcertificate/viewcertificate.component';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { ResetComponent, DialogComponent2 } from './reset/reset.component';
+import {
+  SessionExpirationAlert,
+  SessionInterruptService,
+} from '../../projects/session-expiration-alert/src/public-api';
 
+import { AppSessionInterruptService } from './services/app-session-interrupt.service';
 const appRoutes: Routes = [
   { path: '', component: LoginComponent },
   { path: 'signup', component: SignupComponent },
@@ -43,6 +48,7 @@ const appRoutes: Routes = [
     DialogComponent1,
     ResetComponent,
     DialogComponent2,
+   
     
   ],
   imports: [
@@ -55,12 +61,16 @@ const appRoutes: Routes = [
     BrowserAnimationsModule,
     MatDialogModule,
     MatTooltipModule,
-    
+    SessionExpirationAlert.forRoot({ totalMinutes: 0.5 }), 
 
   ],
 
   providers: [
-    provideClientHydration()
+    provideClientHydration(),
+    {
+    provide: SessionInterruptService,
+    useClass: AppSessionInterruptService,
+    }
   ],
   bootstrap: [AppComponent]
 })
